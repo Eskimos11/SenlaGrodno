@@ -1,12 +1,11 @@
 package com.senla.dao;
 
 import com.Value;
-import com.senla.api.dao.IProviderDao;
 import com.senla.entity.Provider;
 
 import java.util.List;
 
-public class ProviderDao extends AbstractDao<Provider> implements IProviderDao {
+public class ProviderDaoImpl extends AbstractDao<Provider> implements com.senla.api.dao.ProviderDao {
 
     @Value("dao")
     private String someText;

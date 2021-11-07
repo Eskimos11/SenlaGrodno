@@ -3,8 +3,7 @@ package com.senla.service;
 
 import com.senla.entity.DiscountCard;
 
-public class DiscountCardService {
-    //dao discard
+public class DiscountCardServiceImpl {
 
     //todo Все сделано в Provider
     public DiscountCard CreateDiscountCard(String number){

@@ -2,6 +2,6 @@ package com.senla.api;
 
 import com.senla.entity.Provider;
 
-public interface IFacade {
+public interface Facade {
     Provider createProvider(String title);
 }

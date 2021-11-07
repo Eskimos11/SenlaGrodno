@@ -1,13 +1,11 @@
 package com.senla.dao;
 
-import com.senla.api.dao.ICustomerDao;
-
 import com.senla.entity.Customer;
 
 
 import java.util.List;
 
-public class CustomerDao extends AbstractDao<Customer> implements ICustomerDao {
+public class CustomerDaoImpl extends AbstractDao<Customer> implements com.senla.api.dao.CustomerDao {
 
     //todo Все сделано в Provider
     @Override

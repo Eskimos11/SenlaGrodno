@@ -2,7 +2,6 @@ package com;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -24,7 +23,6 @@ public class ApplicationContext {
             return (T) cache.get(type);
         }
 
-
         Class<? extends T> implClass = type;
 
         if (type.isInterface()) {
@@ -36,7 +34,6 @@ public class ApplicationContext {
         if (implClass.isAnnotationPresent(Singleton.class)) {
             cache.put(type, t);
         }
-
         return t;
     }
 }

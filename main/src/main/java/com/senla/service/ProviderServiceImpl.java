@@ -3,16 +3,15 @@ package com.senla.service;
 import com.Autowire;
 import com.Singleton;
 import com.Value;
-import com.senla.api.dao.IProviderDao;
+import com.senla.api.dao.ProviderDao;
 
-import com.senla.api.service.IProviderService;
 import com.senla.entity.Provider;
 
 @Singleton
-public class ProviderService  implements IProviderService {
+public class ProviderServiceImpl implements com.senla.api.service.ProviderService {
 
     @Autowire
-    private IProviderDao providerDao;
+    private ProviderDao providerDao;
 
     @Value("service")
     private String string;

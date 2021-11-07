@@ -1,7 +1,6 @@
 package com;
 
 import lombok.SneakyThrows;
-
 import java.lang.reflect.Field;
 
 public class InjectByTypeAnnotationObjectConfigurator implements ObjectConfigurator {

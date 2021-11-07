@@ -23,7 +23,7 @@
         <sqlFile encoding="utf8" path="./sql/04.providers.sql" relativeToChangelogFile="true"/>
     </changeSet>
     <changeSet id="homework-2-products_has_providers" author="Pavel Kurilo">
-        <sqlFile encoding="utf8" path="./sql/05.products_has_providers.sql" relativeToChangelogFile="true"/>
+        <sqlFile encoding="utf8" path="./sql/05.products_providers.sql" relativeToChangelogFile="true"/>
     </changeSet>
     <changeSet id="homework-2-orders" author="Pavel Kurilo">
         <sqlFile encoding="utf8" path="./sql/06.orders.sql" relativeToChangelogFile="true"/>

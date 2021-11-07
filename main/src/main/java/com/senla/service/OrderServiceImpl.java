@@ -9,7 +9,7 @@ import com.senla.entity.Product;
 import java.util.List;
 
 
-public class OrderService {
+public class OrderServiceImpl {
 
     //todo Все сделано в Provider
 

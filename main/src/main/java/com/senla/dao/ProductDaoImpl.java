@@ -2,7 +2,7 @@ package com.senla.dao;
 
 
 
-public class ProductDao  {
+public class ProductDaoImpl {
     //todo Все сделано в Provider
 
 
