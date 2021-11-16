@@ -10,5 +10,5 @@ public interface ProviderService {
 
     Provider getProvider(Integer id);
 
-    Provider updateProvider(Integer id, Provider provider);
+    Provider updateProvider(Provider provider);
 }

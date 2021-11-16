@@ -30,9 +30,9 @@ public class ProviderController {
         return providerService.getProvider(id);
     }
 
-    public Provider updateProvider(Integer id, String providerJson){
+    public Provider updateProvider(String providerJson){
         Provider provider = jsonToUserMapper.convertToModel(providerJson);
-        providerService.updateProvider(id,provider);
+        providerService.updateProvider(provider);
         return provider;
     }
 }

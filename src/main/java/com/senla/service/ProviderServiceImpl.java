@@ -1,12 +1,13 @@
 package com.senla.service;
 
+import com.senla.annotation.Transactional;
 import com.senla.api.dao.ProviderDao;
+import com.senla.api.service.ProviderService;
 import com.senla.entity.Provider;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProviderServiceImpl implements com.senla.api.service.ProviderService {
+public class ProviderServiceImpl implements ProviderService {
 
     private final ProviderDao providerDao;
 
@@ -15,9 +16,11 @@ public class ProviderServiceImpl implements com.senla.api.service.ProviderServic
     }
 
     @Override
+    @Transactional
     public void saveProvider(Provider provider) {
         providerDao.save(provider);
         System.out.println("Object created - " + provider);
+
     }
 
     @Override
@@ -32,8 +35,8 @@ public class ProviderServiceImpl implements com.senla.api.service.ProviderServic
     }
 
     @Override
-    public Provider updateProvider(Integer id, Provider provider){
-       return providerDao.update(id ,provider);
+    public Provider updateProvider(Provider provider){
+       return providerDao.update(provider);
 
     }
 }

@@ -12,21 +12,20 @@ public class Application {
         ProviderController providerController = context.getBean("providerController", ProviderController.class);
 
         //Create
-        providerController.createProvider("{\"id\":\"1\",\"title\":\"Pepsi\"}");
-        providerController.createProvider("{\"id\":\"2\",\"title\":\"Cola\"}");
-
-
-        //Read
-        System.out.println(providerController.getProvider(1));
-
+//        providerController.createProvider("{\"id\":\"1\",\"title\":\"Pepsi\"}");
+//        providerController.createProvider("{\"id\":\"2\",\"title\":\"Cola\"}");
+//
+//
+//        //Read
+//        System.out.println(providerController.getProvider(2));
+//
         //Delete
-        providerController.deleteProvider("{\"id\":\"2\",\"title\":\"Cola\"}");
-
-        //Update
-        providerController.updateProvider(1, "{\"id\":\"1\",\"title\":\"Mirinda\"}");
+//        providerController.deleteProvider("{\"id\":\"2\",\"title\":\"Sprite\"}");
+//
+//        //Update
+//        providerController.updateProvider( "{\"id\":\"1\",\"title\":\"Mirinda\"}");
         //Read
         System.out.println(providerController.getProvider(1));
-
 
         context.close();
     }
