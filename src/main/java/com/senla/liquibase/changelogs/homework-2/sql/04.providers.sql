@@ -1,5 +1,5 @@
 CREATE TABLE providers (
-  idproviders int NOT NULL,
+  id int NOT NULL,
   title varchar(45) NOT NULL,
-  PRIMARY KEY (idproviders)
+  PRIMARY KEY (id)
 ) ;
