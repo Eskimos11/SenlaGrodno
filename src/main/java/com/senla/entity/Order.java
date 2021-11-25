@@ -1,17 +1,24 @@
 package com.senla.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import javax.persistence.*;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "orders")
 public class Order extends AEntity{
-    //todo Все сделано в Provider
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customers")
     private Customer customer;
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "products_id")
     private List<Product> productList;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customers_discount_cards_id")
     private DiscountCard discountCard;
 
     @Override

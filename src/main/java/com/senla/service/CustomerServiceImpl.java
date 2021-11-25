@@ -1,23 +1,50 @@
 package com.senla.service;
 
-import com.senla.dao.CustomerDaoImpl;
+import com.senla.api.dao.CustomerDao;
+import com.senla.api.service.CustomerService;
+import com.senla.controller.dto.CustomerDto;
 import com.senla.entity.Customer;
-import com.senla.entity.DiscountCard;
-import org.springframework.stereotype.Service;
+import com.senla.service.converter.CustomerConverter;
+import org.springframework.stereotype.Component;
 
-@Service
-public class CustomerServiceImpl {
+import javax.transaction.Transactional;
 
-    private final CustomerDaoImpl customerDao;
+@Component
+public class CustomerServiceImpl implements CustomerService {
 
-    public CustomerServiceImpl(CustomerDaoImpl customerDao) {
+    private final CustomerDao customerDao;
+    private final CustomerConverter customerConverter;
+
+    public CustomerServiceImpl(CustomerDao customerDao, CustomerConverter customerConverter) {
         this.customerDao = customerDao;
+        this.customerConverter = customerConverter;
     }
 
-    public Customer createCustomer(String name, DiscountCard discountCard) {
-        Customer customer = new Customer(name, discountCard);
-        return customer;
+    @Override
+    public CustomerDto saveCustomer(CustomerDto customerDto) {
+        final Customer customer = customerConverter.convert(customerDto);
+        final Customer savedCustomer = customerDao.save(customer);
+        return customerConverter.convert(savedCustomer);
+
     }
 
+    @Override
+    public void deleteCustomer(Integer id) {
+        customerDao.delete(id);
+    }
 
+    @Override
+    public CustomerDto getCustomerInfo(Integer id) {
+        final Customer customer = customerDao.getById(id);
+        return customerConverter.convert(customer);
+
+    }
+
+    @Override
+    public CustomerDto updateCustomer(CustomerDto customerDto) {
+        final Customer customer = customerConverter.convert(customerDto);
+        final Customer updatedCustomer = customerDao.update(customer);
+        return customerConverter.convert(updatedCustomer);
+
+    }
 }

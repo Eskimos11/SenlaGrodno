@@ -1,8 +1,10 @@
 package com.senla.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class DiscountCardServiceImpl {
-    //todo Все сделано в Provider
+
 }

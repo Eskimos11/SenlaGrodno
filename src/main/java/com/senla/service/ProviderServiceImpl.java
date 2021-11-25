@@ -1,42 +1,48 @@
 package com.senla.service;
 
-import com.senla.annotation.Transactional;
 import com.senla.api.dao.ProviderDao;
 import com.senla.api.service.ProviderService;
+import com.senla.controller.dto.ProviderDto;
 import com.senla.entity.Provider;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.transaction.Transactional;
+
 @Service
+@RequiredArgsConstructor
 public class ProviderServiceImpl implements ProviderService {
 
     private final ProviderDao providerDao;
 
-    public ProviderServiceImpl(ProviderDao providerDao) {
-        this.providerDao = providerDao;
+    @Override
+    @Transactional
+    public void saveProvider(ProviderDto providerDto) {
+        final Provider provider = Provider.builder()
+                .title(providerDto.getTitle()).build();
+        providerDao.save(provider);
+
     }
 
     @Override
     @Transactional
-    public void saveProvider(Provider provider) {
-        providerDao.save(provider);
-        System.out.println("Object created - " + provider);
-
+    public void deleteProvider(Integer id) {
+        providerDao.delete(id);
     }
 
     @Override
-    public void deleteProvider(Provider provider){
-        providerDao.delete(provider);
-        System.out.println("Object deleted");
+    @Transactional
+    public Provider getProvider(Integer id) {
+        return providerDao.getById(id);
     }
 
     @Override
-    public Provider getProvider(Integer id){
-       return providerDao.getById(id);
-    }
-
-    @Override
-    public Provider updateProvider(Provider provider){
-       return providerDao.update(provider);
+    @Transactional
+    public Provider updateProvider(ProviderDto providerDto) {
+        final Provider provider = Provider.builder()
+                .title(providerDto.getTitle()).build();
+        return providerDao.update(provider);
 
     }
 }

@@ -1,6 +1,8 @@
 
-import com.senla.controller.ProviderController;
+import com.senla.api.dao.CustomerDao;
+import com.senla.controller.CustomerController;
 import com.senla.controller.configuration.ContextConfiguration;
+
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Application {
@@ -9,24 +11,11 @@ public class Application {
 
         AnnotationConfigApplicationContext context =
                 new AnnotationConfigApplicationContext(ContextConfiguration.class);
-        ProviderController providerController = context.getBean("providerController", ProviderController.class);
+        CustomerController customerController = context.getBean("customerController", CustomerController.class);
+//        customerController.getCustomer(0);
 
-        //Create
-//        providerController.createProvider("{\"id\":\"1\",\"title\":\"Pepsi\"}");
-//        providerController.createProvider("{\"id\":\"2\",\"title\":\"Cola\"}");
-//
-//
-//        //Read
-//        System.out.println(providerController.getProvider(2));
-//
-        //Delete
-//        providerController.deleteProvider("{\"id\":\"2\",\"title\":\"Sprite\"}");
-//
-//        //Update
-//        providerController.updateProvider( "{\"id\":\"1\",\"title\":\"Mirinda\"}");
-        //Read
-        System.out.println(providerController.getProvider(1));
-
+        CustomerDao customerDao = context.getBean("customerDao", CustomerDao.class);
+        System.out.println(customerDao.getByIdWith(0));
         context.close();
     }
 }

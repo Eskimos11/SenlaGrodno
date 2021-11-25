@@ -4,13 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "discount_cards")
 public class DiscountCard extends AEntity{
 
-    //todo Все сделано в Provider
-
+    @Column(name = "number")
     private String number;
 
     @Override

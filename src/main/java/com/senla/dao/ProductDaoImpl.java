@@ -1,9 +1,14 @@
 package com.senla.dao;
 
-
+import com.senla.api.dao.ProductDao;
+import com.senla.entity.Product;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
-public class ProductDaoImpl {
-    //todo Все сделано в Provider
+@Repository
+public class ProductDaoImpl extends AbstractDao<Product> implements ProductDao {
+    @Override
+    protected Class<Product> getClazz(){
+        return Product.class;
+    }
 }

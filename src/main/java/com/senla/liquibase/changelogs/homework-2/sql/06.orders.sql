@@ -1,7 +1,7 @@
 CREATE TABLE orders (
   id int NOT NULL,
   products_id int NOT NULL,
-   customers_id int NOT NULL,
+  customers_id int NOT NULL,
   customers_discount_cards_id int ,
   PRIMARY KEY (id, products_id,customers_id,customers_discount_cards_id),
 
