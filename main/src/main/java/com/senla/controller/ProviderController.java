@@ -2,7 +2,7 @@ package com.senla.controller;
 
 import com.senla.controller.dto.ProviderCreateDto;
 import com.senla.controller.dto.ProviderDto;
-import com.senla.service.ProviderServiceImpl;
+import com.senla.service.ProviderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/providers")
 public class ProviderController {
 
-    private final ProviderServiceImpl providerService;
+    private final ProviderService providerService;
     @PostMapping
     public ProviderDto createCustomer(@RequestBody ProviderCreateDto providerDto) {
         return providerService.saveProvider(providerDto);

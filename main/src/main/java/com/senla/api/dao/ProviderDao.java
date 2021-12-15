@@ -5,7 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 public interface ProviderDao extends GenericDao<Provider, Integer> {
-    Provider update(Provider user);
+    Provider update(Provider provider);
 
     void deleteById(Integer id);
 

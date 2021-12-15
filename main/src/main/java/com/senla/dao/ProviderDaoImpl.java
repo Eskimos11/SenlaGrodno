@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaDelete;
-import javax.persistence.criteria.Root;
 
 @Repository
 public class ProviderDaoImpl extends AbstractDao<Provider, Integer> implements ProviderDao {
