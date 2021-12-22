@@ -20,9 +20,9 @@ import java.util.Map;
 
 @Component
 public class JwtProvider   {
-    @Value("")
-    private String secret;
 
+    @Value("mXwVcT3zeIkW77s93rtAtWOvXSAraSFH_csMT30-w_I")
+    private String secret;
     @Value("PT10M")
     private String expiration;
 
@@ -35,7 +35,7 @@ public class JwtProvider   {
                 .setSubject(userName)
                 .setExpiration(Date.from(Instant.from(Instant.now().plus(Duration.parse(expiration).toMinutes(), ChronoUnit.MINUTES))))
                 .signWith(
-                        SignatureAlgorithm.ES256,
+                        SignatureAlgorithm.HS256,
                         secret.getBytes(StandardCharsets.UTF_8))
                 .compact();
     }

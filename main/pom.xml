@@ -161,7 +161,7 @@
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
                 <configuration>
-                    <propertyFile>src/main/ase/liquibase.properties</propertyFile>
+                    <propertyFile>liquibase.properties</propertyFile>
                 </configuration>
                 <executions>
                     <execution>

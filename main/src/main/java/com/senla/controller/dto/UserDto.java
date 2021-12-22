@@ -16,5 +16,4 @@ public class UserDto {
     private Integer id;
     private String username;
     private String password;
-    private List<Role> roleList;
 }

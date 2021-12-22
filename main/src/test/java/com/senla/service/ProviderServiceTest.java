@@ -22,27 +22,42 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class ProviderServiceTest {
 
-//    @InjectMocks
-//    private ProviderService providerService;
-//    @Spy
-//    private ModelMapper mapper;
-//
-//
-//    @Mock
-//    private ProviderDao providerDao;
-//
-//    @Test
-//    public void saveUserShouldFinishOk() {
-//
-//        final String title = "Pepsi";
-//        when(providerDao.save(any())).thenReturn(Provider.builder().title(title).id(123).build());
-//
-//        final ProviderDto providerDto = providerService.saveProvider(
-//
-//
-//        assertEquals(123, providerDto.getId());
-//        assertEquals(title, providerDto.getTitle());
-//    }
+    @InjectMocks
+    private ProviderService providerService;
+    @Spy
+    private ModelMapper mapper;
+
+
+    @Mock
+    private ProviderDao providerDao;
+
+    @Test
+    public void saveProviderShouldFinishOk() {
+
+        final String title = "Pepsi";
+        when(providerDao.save(any())).thenReturn(Provider.builder().title(title).id(123).build());
+
+        final ProviderDto userDto = providerService.saveProvider(
+                ProviderCreateDto.builder()
+                        .title(title)
+                        .build());
+
+        assertEquals(123, userDto.getId());
+        assertEquals(title, userDto.getTitle());
+    }
+    @Test
+    public void deleteProviderShouldFinishOk() {
+
+        String title = "Pepsi";
+        when(providerDao.save(any())).thenReturn(Provider.builder().title(title).id(123).build());
+
+        final ProviderDto userDto = providerService.saveProvider(
+                ProviderCreateDto.builder()
+                        .title(title)
+                        .build());
+        providerService.deleteProvider(userDto.getId());
+        assertEquals(null, providerDao.getById(userDto.getId()));
+    }
 
 
 }

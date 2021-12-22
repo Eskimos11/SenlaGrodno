@@ -1,5 +1,7 @@
 package com.senla.security;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,10 +16,10 @@ import java.io.IOException;
 
 
 import static java.util.Optional.ofNullable;
-
+@Configuration
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    public static final String BEARER = "Bearer";
+    public static final String BEARER = "Bearer ";
 
     private final UserDetailsService userDetailsService;
     private final JwtProvider jwtProvider;
@@ -25,6 +27,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     public JwtAuthenticationFilter(JwtProvider jwtProvider, UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
         this.jwtProvider = jwtProvider;
+    }
+    @Bean
+    public JwtAuthenticationFilter getJwtAuthenticationFilter(){
+      return new JwtAuthenticationFilter(jwtProvider,userDetailsService);
     }
 
     @Override

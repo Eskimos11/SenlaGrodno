@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
 public class UserController {
@@ -20,14 +20,20 @@ public class UserController {
     public UserDto createUser(@RequestBody UserCreateDto userDto) {
         return userService.saveUser(userDto);
     }
-//    @DeleteMapping("/{id}")
-//    public void deleteUser(@PathVariable Integer id) {
-//        userService.(id);
-//    }
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable Integer id) {
+        userService.deleteUser(id);
+    }
     @GetMapping(value = "/{id}")
-    public UserDto getById(@PathVariable Integer id) {
+    public UserCreateDto getById(@PathVariable Integer id) {
         return userService.getUserInfo(id);
     }
+    @PutMapping
+    public UserDto updateCustomer(@RequestBody UserDto userDto) {
+        return userService.updateUser(userDto);
+
+    }
+
 }
 
 

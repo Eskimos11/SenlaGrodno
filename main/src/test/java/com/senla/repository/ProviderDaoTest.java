@@ -15,18 +15,29 @@ import static org.junit.jupiter.api.Assertions.*;
 @ContextConfiguration(classes = ProviderDaoImpl.class)
 class ProviderDaoTest extends BaseRepositoryTest {
 
-    @Autowired
-    private ProviderDao providerDao;
-
-    @Test
-    public void jpaShouldSetIdWhenEntitySaved() {
-        final Provider title =
-                providerDao.save(
-                Provider.builder()
-                        .title("Cola")
-                        .build()
-        );
-        assertNotNull(title.getId());
-    }
+//    @Autowired
+//    private ProviderDao providerDao;
+//
+//    @Test
+//    public void jpaShouldSetIdWhenEntitySaved() {
+//        final Provider title =
+//                providerDao.save(
+//                Provider.builder()
+//                        .title("Cola")
+//                        .build()
+//        );
+//        assertNotNull(title.getId());
+//    }
+//    @Test
+//    public void asdasd(){
+//         Provider title =
+//                providerDao.save(
+//                        Provider.builder()
+//                                .title("Cola")
+//                                .build()
+//                );
+//        providerDao.deleteById(providerDao.getById(title.getId()));
+//        assertNull(title);
+//    }
 
 }
