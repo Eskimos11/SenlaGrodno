@@ -20,7 +20,9 @@ public class Product {
     @Column(name = "title")
     private String title;
     @Column(name = "price")
-    private int price;
+    private Integer price;
+    @Column(name = "number")
+    private Integer number;
 
     @Override
     public String toString() {

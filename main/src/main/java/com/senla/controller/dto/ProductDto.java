@@ -1,21 +1,19 @@
 package com.senla.controller.dto;
 
-import com.senla.entity.Role;
-import liquibase.pro.packaged.R;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
+public class ProductDto {
+
     private Integer id;
-    private String username;
-    private String password;
-    private Role role;
+    private String title;
+    private Integer price;
+    private Integer number;
+
 }

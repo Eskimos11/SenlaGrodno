@@ -1,1 +1,2 @@
-delete from providers;
+--delete from USERS;
+--delete from role;

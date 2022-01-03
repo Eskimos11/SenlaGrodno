@@ -1,5 +1,13 @@
 package com.senla.api.dao;
 
-public interface ProductDao  {
+import com.senla.entity.Product;
+import com.senla.entity.User;
+import org.springframework.transaction.annotation.Transactional;
+
+@Transactional
+public interface ProductDao extends GenericDao<Product, Integer> {
+    Product update(Product product);
+
+    void deleteById(Integer id);
 
 }

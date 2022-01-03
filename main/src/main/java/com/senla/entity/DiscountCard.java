@@ -2,6 +2,7 @@ package com.senla.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+
 @Table(name = "discount_cards")
 public class DiscountCard {
     @Id
@@ -19,6 +21,7 @@ public class DiscountCard {
     private Integer id;
     @Column(name = "number")
     private String number;
+
 
     @Override
     public String toString() {

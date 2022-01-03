@@ -28,10 +28,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         this.userDetailsService = userDetailsService;
         this.jwtProvider = jwtProvider;
     }
-    @Bean
-    public JwtAuthenticationFilter getJwtAuthenticationFilter(){
-      return new JwtAuthenticationFilter(jwtProvider,userDetailsService);
-    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
