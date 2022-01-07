@@ -2,6 +2,7 @@ package com.senla.controller.dto;
 
 
 
+import com.senla.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -24,6 +24,8 @@ public class Orders {
     private List<Product> productList;
     @Column(name = "sum")
     private Integer sum;
+//    @Column(name = "count")
+//    private Integer count;
 //    @OneToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "customers_discount_cards_id")
 //    private DiscountCard discountCard;

@@ -1,5 +1,6 @@
 package com.senla.controller;
 
+import com.senla.controller.dto.OrderGetDto;
 import com.senla.controller.dto.OrdersDto;
 import com.senla.controller.dto.ProductDto;
 import com.senla.service.OrdersService;
@@ -20,7 +21,7 @@ public class OrdersController {
         ordersService.deleteOrder(id);
     }
     @GetMapping(value = "/{id}")
-    public OrdersDto getById(@PathVariable Integer id) {
+    public OrderGetDto getById(@PathVariable Integer id) {
         return ordersService.getInfoOrder(id);
     }
     @PutMapping
@@ -29,7 +30,7 @@ public class OrdersController {
     }
 
     @GetMapping("/add/{orderId}/{productId}/{count}")
-    public OrdersDto addProducts(@PathVariable Integer orderId
+    public OrderGetDto addProducts(@PathVariable Integer orderId
                                 ,@PathVariable Integer productId
                                 ,@PathVariable Integer count) {
         return ordersService.addProducts(orderId,productId,count);

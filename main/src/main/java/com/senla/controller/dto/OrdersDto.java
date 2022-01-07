@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class OrdersDto {
 
     private Integer id;
-    private Integer sum;
+    private Integer sum = 0;
 
 }
