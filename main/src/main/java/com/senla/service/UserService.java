@@ -24,6 +24,7 @@ import static java.util.Optional.ofNullable;
 public class UserService {
 
     private final UserDao userDao;
+    private final RoleDao roleDao;
 
     private final ModelMapper mapper;
     private final PasswordEncoder passwordEncoder;
@@ -31,6 +32,7 @@ public class UserService {
     public UserDto saveUser(UserCreateDto UserCreateDto) {
         final User user = mapper.map(UserCreateDto, User.class);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+//        user.setRole(roleDao.getById(1L));
         final User savedUser = userDao.save(user);
         return mapper.map(savedUser, UserDto.class);
     }

@@ -18,8 +18,8 @@ public class GlobalControllerAdvice {
         );
     }
 
-    @ExceptionHandler(RuntimeException.class)
-    public ErrorMessageDto catchRuntimeException() {
-        return new ErrorMessageDto("ERROR");
-    }
+//    @ExceptionHandler(RuntimeException.class)
+//    public ErrorMessageDto catchRuntimeException() {
+//        return new ErrorMessageDto("ERROR");
+//    }
 }
