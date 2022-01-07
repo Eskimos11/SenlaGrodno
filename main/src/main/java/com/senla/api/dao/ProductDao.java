@@ -10,4 +10,6 @@ public interface ProductDao extends GenericDao<Product, Integer> {
 
     void deleteById(Integer id);
 
+    Product getByTitle(String title);
+
 }

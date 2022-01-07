@@ -1,6 +1,5 @@
 package com.senla.entity;
 
-import jdk.jfr.MemoryAddress;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,7 +18,9 @@ public class Orders {
     @SequenceGenerator(name = "order-id-sequence", sequenceName = "order_seq", allocationSize = 1)
     private Integer id;
     @ManyToMany(fetch= FetchType.EAGER, cascade= CascadeType.ALL)
-    @JoinColumn(name = "products_id")
+    @JoinTable(name = "orders_products",
+            joinColumns = @JoinColumn(name = "orders_id"),
+            inverseJoinColumns = @JoinColumn(name = "products_id"))
     private List<Product> productList;
     @Column(name = "sum")
     private Integer sum;
@@ -27,5 +28,13 @@ public class Orders {
 //    @JoinColumn(name = "customers_discount_cards_id")
 //    private DiscountCard discountCard;
 
+
+    @Override
+    public String toString() {
+        return "Orders{" +
+                "id=" + id +
+                ", sum=" + sum +
+                '}';
+    }
 
 }

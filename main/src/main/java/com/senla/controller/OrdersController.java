@@ -27,8 +27,11 @@ public class OrdersController {
     public OrdersDto updateOrder(@RequestBody OrdersDto ordersDto) {
         return ordersService.updateOrder(ordersDto);
     }
-    @PutMapping("/add/{id}/")
-    public OrdersDto addProducts(@RequestBody OrdersDto ordersDto, ProductDto productDto) {
-        return ordersService.addProducts(ordersDto, productDto);
+
+    @GetMapping("/add/{orderId}/{productId}/{count}")
+    public OrdersDto addProducts(@PathVariable Integer orderId
+                                ,@PathVariable Integer productId
+                                ,@PathVariable Integer count) {
+        return ordersService.addProducts(orderId,productId,count);
     }
 }
