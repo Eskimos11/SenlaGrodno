@@ -1,5 +1,6 @@
 package com.senla.dao;
 
+import com.senla.entity.Details;
 import com.senla.entity.Role;
 import com.senla.entity.Role_;
 import org.springframework.stereotype.Repository;
@@ -14,7 +15,6 @@ import javax.persistence.criteria.Root;
 @Repository
 public class RoleDao {
 
-    public static final String JAVAX_PERSISTENCE_FETCHGRAPH = "javax.persistence.fetchgraph";
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -22,8 +22,8 @@ public class RoleDao {
         entityManager.persist(role);
     }
 
-    public Role getById(Long roleId) {
-        return entityManager.find(Role.class, roleId);
+    public Details getById(int roleId) {
+        return entityManager.find(Details.class, roleId);
     }
 
 

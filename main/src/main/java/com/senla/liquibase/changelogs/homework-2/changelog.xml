@@ -1,4 +1,3 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
@@ -11,20 +10,20 @@
         logicalFilePath="com/senla/liquibase">
 
 
-<changeSet id="homework-2-discount_cards" author="Pavel Kurilo">
-        <sqlFile encoding="utf8" path="sql/01.discount_cards.sql" relativeToChangelogFile="true"/>
-    </changeSet>
-    <changeSet id="homework-2-customers" author="Pavel Kurilo">
-        <sqlFile encoding="utf8" path="sql/02.customers.sql" relativeToChangelogFile="true"/>
-    </changeSet>
+<!--<changeSet id="homework-2-discount_cards" author="Pavel Kurilo">-->
+<!--        <sqlFile encoding="utf8" path="sql/01.discount_cards.sql" relativeToChangelogFile="true"/>-->
+<!--    </changeSet>-->
+<!--    <changeSet id="homework-2-customers" author="Pavel Kurilo">-->
+<!--        <sqlFile encoding="utf8" path="sql/02.customers.sql" relativeToChangelogFile="true"/>-->
+<!--    </changeSet>-->
     <changeSet id="homework-2-products" author="Pavel Kurilo">
         <sqlFile encoding="utf8" path="sql/03.products.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    <changeSet id="homework-2-providers" author="Pavel Kurilo">
-        <sqlFile encoding="utf8" path="sql/04.providers.sql" relativeToChangelogFile="true"/>
-    </changeSet>
+<!--    <changeSet id="homework-2-providers" author="Pavel Kurilo">-->
+<!--        <sqlFile encoding="utf8" path="sql/04.providers.sql" relativeToChangelogFile="true"/>-->
+<!--    </changeSet>-->
     <changeSet id="homework-2-products_has_providers" author="Pavel Kurilo">
-        <sqlFile encoding="utf8" path="sql/05.products_providers.sql" relativeToChangelogFile="true"/>
+        <sqlFile encoding="utf8" path="sql/05.orders_products.sql" relativeToChangelogFile="true"/>
     </changeSet>
     <changeSet id="homework-2-orders" author="Pavel Kurilo">
         <sqlFile encoding="utf8" path="sql/06.orders.sql" relativeToChangelogFile="true"/>
@@ -34,6 +33,9 @@
     </changeSet>
     <changeSet id="homework-2-role" author="Pavel Kurilo">
         <sqlFile encoding="utf8" path="sql/08.role.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="homework-2-role" author="Pavel Kurilo">
+        <sqlFile encoding="utf8" path="sql/08.details.sql" relativeToChangelogFile="true"/>
     </changeSet>
 
 

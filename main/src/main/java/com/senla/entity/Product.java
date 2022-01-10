@@ -25,6 +25,8 @@ public class Product {
     private Integer price;
     @Column(name = "number")
     private Integer number;
+//    @Column(name = "purchaseQuantity")
+//    private Integer purchaseQuantity;
 
     @Override
     public String toString() {

@@ -1,9 +1,6 @@
 package com.senla.controller;
 
-import com.senla.controller.dto.ProviderCreateDto;
-import com.senla.controller.dto.ProviderDto;
-import com.senla.controller.dto.UserCreateDto;
-import com.senla.controller.dto.UserDto;
+import com.senla.controller.dto.*;
 import com.senla.service.ProviderService;
 import com.senla.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +23,7 @@ public class UserController {
         userService.deleteUser(id);
     }
     @GetMapping(value = "/{id}")
-    @Secured("ROLE_ADMIN")
+//    @Secured("ROLE_ADMIN")
     public UserCreateDto getById(@PathVariable Integer id) {
         return userService.getUserInfo(id);
     }

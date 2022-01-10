@@ -2,6 +2,7 @@ package com.senla.controller.dto;
 
 
 
+import com.senla.entity.Details;
 import com.senla.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,5 +18,6 @@ public class UserCreateDto {
     private Integer id;
     private String username;
     private String password;
+    private Details details;
 }
 

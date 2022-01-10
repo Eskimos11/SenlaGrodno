@@ -38,15 +38,15 @@ public class OrdersDaoImpl extends AbstractDao<Orders, Integer> implements Order
     }
     @Override
     public List<Product> getProduct(int id) {
-//        final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-//        final CriteriaQuery<Product> query = criteriaBuilder.createQuery(Product.class);
-//        final Root<Product> from = query.from(Product.class);
-//
-//        return entityManager.createQuery(
-//             query.select(from).
-//        ).setParameter("id",id).getSingleResult();
-        return null;
-    }
+        final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        final CriteriaQuery<Product> query = criteriaBuilder.createQuery(Product.class);
+        final Root<Product> from = query.from(Product.class);
+        from.fetch(Product_.title, JoinType.LEFT);
 
+        return (List<Product>) entityManager.createQuery(
+                query.select(from)
+                        .where(criteriaBuilder.equal(from.get(Product_.id), id))
+        ).getSingleResult();
+    }
 }
 
