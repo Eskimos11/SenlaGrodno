@@ -36,17 +36,14 @@ public class OrdersDaoImpl extends AbstractDao<Orders, Integer> implements Order
         query.where(criteriaBuilder.equal(rows.get(Orders_.id), id));
         entityManager.createQuery(query).executeUpdate();
     }
+
     @Override
-    public List<Product> getProduct(int id) {
-        final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        final CriteriaQuery<Product> query = criteriaBuilder.createQuery(Product.class);
-        final Root<Product> from = query.from(Product.class);
-        from.fetch(Product_.title, JoinType.LEFT);
+    public List<Product> getProduct(Integer id) {
 
         return (List<Product>) entityManager.createQuery(
-                query.select(from)
-                        .where(criteriaBuilder.equal(from.get(Product_.id), id))
-        ).getSingleResult();
+                "select products.title from Product product join fetch orders_products ON products.id = orders_products.products_id where orders_products.orders_id = :id", Product.class
+        ).setParameter("id", id).getSingleResult();
+
     }
 }
 

@@ -14,5 +14,5 @@ public interface OrdersDao extends GenericDao<Orders, Integer> {
 
     List<Orders> getAll();
 
-    List<Product> getProduct(int id);
+    List<Product> getProduct(Integer id);
 }

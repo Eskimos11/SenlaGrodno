@@ -1,11 +1,9 @@
 package com.senla.controller;
 
-import com.senla.controller.dto.*;
-import com.senla.service.ProviderService;
+import com.senla.controller.dto.UserDto.UserCreateDto;
+import com.senla.controller.dto.UserDto.UserDto;
 import com.senla.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

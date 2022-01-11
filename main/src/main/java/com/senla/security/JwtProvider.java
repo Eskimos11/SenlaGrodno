@@ -5,9 +5,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
@@ -19,11 +16,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
+@PropertySource("classpath:application.properties")
 public class JwtProvider   {
 
-    @Value("mXwVcT3zeIkW77s93rtAtWOvXSAraSFH_csMT30-w_I")
+    @Value("${jwt.secret}")
     private String secret;
-    @Value("PT10M")
+    @Value("${expiration}")
     private String expiration;
 
     public String buildToken(String userName) {

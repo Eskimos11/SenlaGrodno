@@ -1,11 +1,8 @@
 package com.senla.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import liquibase.pro.packaged.S;
 import lombok.Data;
 import lombok.SneakyThrows;
-import org.modelmapper.ModelMapper;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

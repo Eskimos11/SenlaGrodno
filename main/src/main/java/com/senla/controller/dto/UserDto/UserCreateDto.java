@@ -1,4 +1,4 @@
-package com.senla.controller.dto;
+package com.senla.controller.dto.UserDto;
 
 
 

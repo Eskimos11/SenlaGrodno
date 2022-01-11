@@ -1,6 +1,6 @@
 package com.senla.controller;
 
-import com.senla.controller.dto.ProductDto;
+import com.senla.controller.dto.ProductDto.ProductDto;
 import com.senla.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

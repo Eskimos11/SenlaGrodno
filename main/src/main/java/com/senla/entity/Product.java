@@ -23,10 +23,10 @@ public class Product {
     private String title;
     @Column(name = "price")
     private Integer price;
-    @Column(name = "number")
-    private Integer number;
-//    @Column(name = "purchaseQuantity")
-//    private Integer purchaseQuantity;
+    @Column(name = "amount")
+    private Integer amount;
+    @Column(name = "purchase_quantity")
+    private Integer purchaseQuantity;
 
     @Override
     public String toString() {

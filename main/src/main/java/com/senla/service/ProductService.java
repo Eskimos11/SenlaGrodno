@@ -1,7 +1,7 @@
 package com.senla.service;
 
 import com.senla.api.dao.ProductDao;
-import com.senla.controller.dto.ProductDto;
+import com.senla.controller.dto.ProductDto.ProductDto;
 import com.senla.entity.Product;
 import com.senla.exception.ProductNotFoundException;
 import lombok.RequiredArgsConstructor;

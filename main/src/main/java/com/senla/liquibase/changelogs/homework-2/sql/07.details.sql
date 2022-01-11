@@ -6,3 +6,4 @@ CREATE TABLE details (
 	phone_number varchar(25),
  PRIMARY KEY (id)
 );
+

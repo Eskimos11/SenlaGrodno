@@ -1,16 +1,12 @@
 package com.senla.service;
 
 import com.senla.api.dao.UserDao;
-import com.senla.controller.dto.DetailsDto;
-import com.senla.controller.dto.UserCreateDto;
-import com.senla.controller.dto.UserDto;
+import com.senla.controller.dto.UserDto.UserCreateDto;
+import com.senla.controller.dto.UserDto.UserDto;
 import com.senla.dao.RoleDao;
-import com.senla.entity.Details;
-import com.senla.entity.Role;
 import com.senla.entity.User;
 import com.senla.exception.UserFoundException;
 import com.senla.exception.UserNotFoundException;
-import liquibase.pro.packaged.R;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -39,6 +35,7 @@ public class UserService {
         User savedUser = null;
         try {
             userDao.getByName(user.getUsername());
+
             throw new UserFoundException(user.getUsername());
         }catch (NoResultException e){
             user.setPassword(passwordEncoder.encode(user.getPassword()));

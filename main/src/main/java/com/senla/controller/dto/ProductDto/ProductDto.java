@@ -1,4 +1,4 @@
-package com.senla.controller.dto;
+package com.senla.controller.dto.ProductDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProviderCreateDto {
+public class ProductDto {
+
+    private Integer id;
     private String title;
+    private Integer price;
+
 }

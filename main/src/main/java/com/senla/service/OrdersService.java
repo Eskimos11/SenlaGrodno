@@ -2,15 +2,14 @@ package com.senla.service;
 
 import com.senla.api.dao.OrdersDao;
 import com.senla.api.dao.ProductDao;
-import com.senla.controller.dto.OrderGetDto;
-import com.senla.controller.dto.OrdersDto;
+import com.senla.controller.dto.OrdersDto.OrderGetDto;
+import com.senla.controller.dto.OrdersDto.OrdersDto;
 import com.senla.entity.Orders;
 import com.senla.entity.Product;
 import com.senla.exception.OrderNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -45,37 +44,29 @@ public class OrdersService {
         return mapper.map(updatedOrders, OrdersDto.class);
     }
 
-    public OrderGetDto addProducts(int ordersDto, int productDto, int count) {
-//        Orders orders = mapper.map(ordersDto,Orders.class);
-//        Product product = mapper.map(productDto,Product.class);
-        Orders orders = ordersDao.getById(ordersDto);
-        Product product = productDao.getById(productDto);
-
+    public OrderGetDto addProducts(Integer orderId, Integer productId, Integer amount) {
+        Orders orders = ordersDao.getById(orderId);
+        Product product = productDao.getById(productId);
         List<Product> productListOrders = orders.getProductList();
-        product.setNumber(count);
+        product.setPurchaseQuantity(amount);
         productListOrders.add(product);
         orders.setProductList(productListOrders);
         orders.setSum(getSumOrder(product) + orders.getSum());
-        Product product1 = productDao.getByTitle(product.getTitle());
-        int a = product1.getNumber() - count;
+        Product updateProduct = productDao.getByTitle(product.getTitle());
+        int changedQuantity = updateProduct.getAmount() - amount;
         Orders updatedOrders = ordersDao.update(orders);
-        product1.setNumber(a);
-        productDao.update(product1);
+        updateProduct.setAmount(changedQuantity);
+        productDao.update(updateProduct);
         return mapper.map(updatedOrders, OrderGetDto.class);
-//        mapper.map(updateProduct,ProductDto.class);
-
-//        return updatedOrders;
     }
 
     public Integer getSumOrder(Product product) {
         int allPrice = 0;
         int price;
         int number;
-
-            number = product.getNumber();
-//            if (number >= 1) {
-            price = product.getPrice();
-            allPrice = (number * price) + allPrice;
+        number = product.getPurchaseQuantity();
+        price = product.getPrice();
+        allPrice = (number * price) + allPrice;
 
 
         return allPrice;

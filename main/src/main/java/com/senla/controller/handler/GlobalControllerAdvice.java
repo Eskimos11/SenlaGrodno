@@ -24,9 +24,9 @@ public class GlobalControllerAdvice {
     public ErrorMessageDto catchRuntimeException(UserFoundException userFoundException) {
         return new ErrorMessageDto("Логин " + userFoundException.getLogin() + " занят");
     }
-
+//
 //    @ExceptionHandler(RuntimeException.class)
-//    public ErrorMessageDto catchRuntimeException() {
+//    public ErrorMessageDto ccatchRuntimeException() {
 //        return new ErrorMessageDto("ERROR");
 //    }
 }

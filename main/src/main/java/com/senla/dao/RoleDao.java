@@ -22,8 +22,8 @@ public class RoleDao {
         entityManager.persist(role);
     }
 
-    public Details getById(int roleId) {
-        return entityManager.find(Details.class, roleId);
+    public Role getById(Integer roleId) {
+        return entityManager.find(Role.class, roleId);
     }
 
 
