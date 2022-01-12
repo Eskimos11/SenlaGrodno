@@ -17,6 +17,7 @@ public class Orders {
             generator = "order-id-sequence")
     @SequenceGenerator(name = "order-id-sequence", sequenceName = "orders_seq", allocationSize = 1)
     private Integer id;
+    //В методе getProducts выдает NullPointerException (пока не иправил)
     @ManyToMany(fetch= FetchType.EAGER, cascade= CascadeType.ALL)
     @JoinTable(name = "orders_products",
             joinColumns = @JoinColumn(name = "orders_id"),

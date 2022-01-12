@@ -19,20 +19,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class UserControllerTest extends WebApplicationTest {
 
-
     @Autowired
     private UserDao userDao;
 
 //    @Test
 //    public void userShouldBeCreated() throws Exception {
 //
-//        assertEquals(0, userRepository.getAll().size());
+//        assertEquals(0, userDao.getAll().size());
 //
-//        final String userDto = """
-//                        {
-//                           "name": "smith"
-//                        }
-//                """;
+//        String userDto="[{'username':'smith'}]";
 //        mockMvc.perform(
 //                        post("/users")
 //                                .contentType(MediaType.APPLICATION_JSON)
@@ -42,7 +37,7 @@ class UserControllerTest extends WebApplicationTest {
 //                .andDo(print())
 //                .andExpect(jsonPath("$.id").exists());
 //
-//        assertNotNull(userRepository.getByName("smith"));
+//        assertNotNull(userDao.getByName("smith"));
 //    }
 
     @Test
@@ -78,13 +73,7 @@ class UserControllerTest extends WebApplicationTest {
 //        final User petya = userDao.save(User.builder()
 //                .username("petya")
 //                .build());
-//
-//        final String userUpdateDto = String.format("""
-//                {
-//                   "name": "smith",
-//                   "id": %s
-//                }
-//                """, petya.getId());
+//        String userUpdateDto=String.format("[{ 'id': %s ,'username':'smith'}]",petya.getId());
 //
 //        mockMvc.perform(
 //                        put("/users/")
@@ -93,9 +82,9 @@ class UserControllerTest extends WebApplicationTest {
 //                ).andExpect(status().is2xxSuccessful())
 //                .andDo(print())
 //                .andExpect(jsonPath("$.id").value(petya.getId()))
-//                .andExpect(jsonPath("$.name").value("smith"));
+//                .andExpect(jsonPath("$.username").value("smith"));
 //
-//        final User smith = userRepository.getByName("smith");
+//        final User smith = userDao.getByName("smith");
 //        assertEquals(smith.getId(), petya.getId());
 //    }
 

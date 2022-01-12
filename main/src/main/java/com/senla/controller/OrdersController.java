@@ -4,18 +4,19 @@ import com.senla.controller.dto.OrdersDto.OrderGetDto;
 import com.senla.controller.dto.OrdersDto.OrdersDto;
 import com.senla.service.OrdersService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@Log4j
 @RequestMapping("/orders")
 public class OrdersController {
 
     private final OrdersService ordersService;
 
     @PostMapping
-    @Secured("ROLE_USER")
     public OrdersDto createOrders(@RequestBody OrdersDto ordersDto) {
         return ordersService.saveOrder(ordersDto);
     }
@@ -34,7 +35,6 @@ public class OrdersController {
     public OrdersDto updateOrder(@RequestBody OrdersDto ordersDto) {
         return ordersService.updateOrder(ordersDto);
     }
-    @Secured("ROLE_USER")
     @PutMapping("/{ordersDto}/{productDto}/{count}")
     public OrderGetDto addProducts(@PathVariable Integer ordersDto
             , @PathVariable Integer productDto

@@ -3,13 +3,11 @@ package com.senla.dao;
 import com.senla.api.dao.OrdersDao;
 import com.senla.entity.*;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.criteria.*;
 import java.util.List;
 
 @Repository
 public class OrdersDaoImpl extends AbstractDao<Orders, Integer> implements OrdersDao {
-
 
     public OrdersDaoImpl() {
         super(Orders.class);
@@ -40,10 +38,9 @@ public class OrdersDaoImpl extends AbstractDao<Orders, Integer> implements Order
     @Override
     public List<Product> getProduct(Integer id) {
 
-        return (List<Product>) entityManager.createQuery(
-                "select products.title from Product product join fetch orders_products ON products.id = orders_products.products_id where orders_products.orders_id = :id", Product.class
+         return (List<Product>) entityManager.createQuery(
+                "Select Product FROM Product p join Orders.productList b where b.id = :id", Product.class
         ).setParameter("id", id).getSingleResult();
-
     }
 }
 

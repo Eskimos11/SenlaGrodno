@@ -8,6 +8,7 @@ import com.senla.entity.Orders;
 import com.senla.entity.Product;
 import com.senla.exception.OrderNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import static java.util.Optional.ofNullable;
 
 @Service
 @RequiredArgsConstructor
+@Log4j
 public class OrdersService {
     private final OrdersDao ordersDao;
     private final ProductDao productDao;

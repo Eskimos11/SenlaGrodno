@@ -10,4 +10,5 @@ INSERT INTO products(id, title, price, amount) VALUES (1, 'Kvas', 10, 100);
 INSERT INTO products(id, title, price, amount) VALUES (2, 'Moloko', 12, 100);
 INSERT INTO products(id, title, price, amount) VALUES (3, 'xleb', 13, 100);
 INSERT INTO products(id, title, price, amount) VALUES (4, 'Kefir', 14, 100);
+
 --

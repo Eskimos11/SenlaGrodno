@@ -10,6 +10,7 @@ import com.senla.entity.User;
 import com.senla.exception.UserFoundException;
 import com.senla.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import static java.util.Optional.ofNullable;
 
 @Service
 @RequiredArgsConstructor
+@Log4j
 public class UserService {
 
     private final UserDao userDao;

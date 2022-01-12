@@ -5,14 +5,14 @@ import com.senla.controller.dto.ProductDto.ProductDto;
 import com.senla.entity.Product;
 import com.senla.exception.ProductNotFoundException;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import static java.util.Optional.ofNullable;
 
-@Slf4j
+@Log4j
 @Service
 @RequiredArgsConstructor
 public class ProductService {
