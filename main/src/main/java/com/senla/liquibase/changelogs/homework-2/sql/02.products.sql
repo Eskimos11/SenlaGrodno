@@ -2,6 +2,7 @@ CREATE TABLE products(
   id int NOT NULL,
   title varchar(45) NOT NULL,
   price int NOT NULL,
+  amount int NOT NULL,
   purchase_quantity int,
   PRIMARY KEY (id)
 ) ;

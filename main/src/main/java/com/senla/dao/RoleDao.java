@@ -1,6 +1,5 @@
 package com.senla.dao;
 
-import com.senla.entity.Details;
 import com.senla.entity.Role;
 import com.senla.entity.Role_;
 import org.springframework.stereotype.Repository;

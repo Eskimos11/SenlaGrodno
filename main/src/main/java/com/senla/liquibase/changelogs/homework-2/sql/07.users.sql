@@ -2,9 +2,9 @@ CREATE TABLE users (
     id int NOT NULL,
     username varchar(20),
     password varchar(100),
-    role int,
+    role_id int,
     details_id int,
-    FOREIGN KEY (role) REFERENCES role(id),
+    FOREIGN KEY (role_id) REFERENCES role(id),
     FOREIGN KEY (details_id) REFERENCES details(id),
     PRIMARY KEY (id));
 

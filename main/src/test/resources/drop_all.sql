@@ -1,2 +1,2 @@
---delete from USERS;
---delete from role;
+delete from USERS;
+delete from role;

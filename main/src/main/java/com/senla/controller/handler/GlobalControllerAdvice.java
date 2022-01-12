@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.persistence.NoResultException;
+
 @RestControllerAdvice
 public class GlobalControllerAdvice {
 
@@ -20,11 +22,11 @@ public class GlobalControllerAdvice {
         );
     }
 
-    @ExceptionHandler(RuntimeException.class)
+    @ExceptionHandler(UserFoundException.class)
     public ErrorMessageDto catchRuntimeException(UserFoundException userFoundException) {
         return new ErrorMessageDto("Логин " + userFoundException.getLogin() + " занят");
     }
-//
+
 //    @ExceptionHandler(RuntimeException.class)
 //    public ErrorMessageDto ccatchRuntimeException() {
 //        return new ErrorMessageDto("ERROR");

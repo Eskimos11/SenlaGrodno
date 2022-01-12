@@ -25,12 +25,16 @@
     <changeSet id="homework-2-role" author="Pavel Kurilo">
         <sqlFile encoding="utf8" path="sql/05.role.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    <changeSet id="homework-2-users" author="Pavel Kurilo">
-        <sqlFile encoding="utf8" path="sql/06.users.sql" relativeToChangelogFile="true"/>
-    </changeSet>
     <changeSet id="homework-2-details" author="Pavel Kurilo">
-        <sqlFile encoding="utf8" path="sql/07.details.sql" relativeToChangelogFile="true"/>
+        <sqlFile encoding="utf8" path="sql/06.details.sql" relativeToChangelogFile="true"/>
     </changeSet>
+    <changeSet id="homework-2-users" author="Pavel Kurilo">
+        <sqlFile encoding="utf8" path="sql/07.users.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+<!--    <changeSet id="homework-2-addData" author="Pavel Kurilo">-->
+<!--        <sqlFile encoding="utf8" path="sql/08.addData.sql" relativeToChangelogFile="true"/>-->
+<!--    </changeSet>-->
+
 
 
 </databaseChangeLog>
