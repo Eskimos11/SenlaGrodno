@@ -22,12 +22,13 @@ class UserControllerTest extends WebApplicationTest {
     @Autowired
     private UserDao userDao;
 
-//    @Test
-//    public void userShouldBeCreated() throws Exception {
-//
+    @Test
+    public void userShouldBeCreated() throws Exception {
+
 //        assertEquals(0, userDao.getAll().size());
 //
-//        String userDto="[{'username':'smith'}]";
+//        String userDto="[{'username':'smith'," +
+//                "         'password':'123'}]";
 //        mockMvc.perform(
 //                        post("/users")
 //                                .contentType(MediaType.APPLICATION_JSON)
@@ -38,7 +39,7 @@ class UserControllerTest extends WebApplicationTest {
 //                .andExpect(jsonPath("$.id").exists());
 //
 //        assertNotNull(userDao.getByName("smith"));
-//    }
+    }
 
     @Test
     public void userShouldBeDeletedById() throws Exception {

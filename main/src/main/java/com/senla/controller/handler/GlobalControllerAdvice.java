@@ -5,6 +5,7 @@ import com.senla.exception.ProviderNotFoundException;
 import com.senla.exception.UserFoundException;
 import com.senla.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -27,8 +28,9 @@ public class GlobalControllerAdvice {
         return new ErrorMessageDto("Логин " + userFoundException.getLogin() + " занят");
     }
 
-//    @ExceptionHandler(RuntimeException.class)
-//    public ErrorMessageDto ccatchRuntimeException() {
-//        return new ErrorMessageDto("ERROR");
-//    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ErrorMessageDto catchRuntimeException() {
+        return new ErrorMessageDto("ERROR");
+    }
 }

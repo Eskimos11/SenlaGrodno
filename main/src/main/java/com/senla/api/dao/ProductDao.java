@@ -4,6 +4,8 @@ import com.senla.entity.Product;
 import com.senla.entity.User;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Transactional
 public interface ProductDao extends GenericDao<Product, Integer> {
     Product update(Product product);
@@ -11,5 +13,7 @@ public interface ProductDao extends GenericDao<Product, Integer> {
     void deleteById(Integer id);
 
     Product getByTitle(String title);
+
+    List<Product> getAll();
 
 }

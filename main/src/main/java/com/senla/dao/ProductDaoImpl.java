@@ -8,6 +8,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.List;
 
 @Repository
 public class ProductDaoImpl extends AbstractDao<Product, Integer> implements ProductDao {
@@ -39,5 +40,14 @@ public class ProductDaoImpl extends AbstractDao<Product, Integer> implements Pro
                         .where(criteriaBuilder.equal(from.get(Product_.title), title))
         ).getSingleResult();
     }
+
+    @Override
+    public List<Product> getAll() {
+        final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        final CriteriaQuery<Product> query = criteriaBuilder.createQuery(Product.class);
+        query.from(Product.class);
+        return entityManager.createQuery(query).getResultList();
+    }
+
 
 }
