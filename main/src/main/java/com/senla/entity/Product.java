@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -27,6 +29,9 @@ public class Product {
     private Integer amount;
     @Column(name = "purchase_quantity")
     private Integer purchaseQuantity;
+
+    @ManyToMany(mappedBy = "productList")
+    private Set<Orders> orders = new HashSet<>();
 
     @Override
     public String toString() {

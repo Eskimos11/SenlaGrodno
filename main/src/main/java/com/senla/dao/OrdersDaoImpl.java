@@ -2,7 +2,12 @@ package com.senla.dao;
 
 import com.senla.api.dao.OrdersDao;
 import com.senla.entity.*;
+import liquibase.pro.packaged.O;
 import org.springframework.stereotype.Repository;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.util.List;
 
@@ -38,9 +43,10 @@ public class OrdersDaoImpl extends AbstractDao<Orders, Integer> implements Order
     @Override
     public List<Product> getProduct(Integer id) {
 
-         return (List<Product>) entityManager.createQuery(
+         return  entityManager.createQuery(
                 "Select Product FROM Product p join Orders.productList b where b.id = :id", Product.class
-        ).setParameter("id", id).getSingleResult();
+        ).setParameter("id", id).getResultList();
     }
 }
+
 

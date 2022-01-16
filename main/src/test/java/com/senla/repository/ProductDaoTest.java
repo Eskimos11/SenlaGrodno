@@ -20,57 +20,57 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ContextConfiguration(classes = ProductDaoImpl.class)
 public class ProductDaoTest extends BaseRepositoryTest {
-    @Autowired
-    private ProductDao productDao;
-
-    @Test
-    public void jpaShouldSetIdWhenEntitySaved() {
-        final Product product =
-                productDao.save(
-                        Product.builder()
-                                .title("Cola")
-                                .build()
-                );
-
-        assertNotNull(product.getId());
-    }
-
-    @Test
-    public void repositoryShouldThrowExceptionWhenUserNotFoundByName() {
-        assertThrows(NoResultException.class, () -> {
-            productDao.getByTitle("absent-title");
-        });
-    }
+//    @Autowired
+//    private ProductDao productDao;
 //
-    @Test
-    public void shouldFindEntityByNameCorrect() {
-        final String cola = "cola";
-        final Product product = productDao.save(
-                Product.builder()
-                        .title(cola)
-                        .build()
-        );
-        final Product potentialCola = productDao.getByTitle(cola);
-
-        assertEquals(product.getId(), potentialCola.getId());
-    }
-
-
-
-    @Test
-    public void shouldReturnAllProducts() {
-        final String cola = "cola";
-        productDao.save(
-                Product.builder()
-                        .title(cola)
-                        .build()
-        );
-
-        final List<Product> all = productDao.getAll();
-
-        assertEquals(1, all.size());
-        final Product product = all.get(0);
-        assertEquals("cola", product.getTitle());
-        assertNotNull(product.getId());
-    }
+//    @Test
+//    public void jpaShouldSetIdWhenEntitySaved() {
+//        final Product product =
+//                productDao.save(
+//                        Product.builder()
+//                                .title("Cola")
+//                                .build()
+//                );
+//
+//        assertNotNull(product.getId());
+//    }
+//
+//    @Test
+//    public void repositoryShouldThrowExceptionWhenUserNotFoundByName() {
+//        assertThrows(NoResultException.class, () -> {
+//            productDao.getByTitle("absent-title");
+//        });
+//    }
+////
+//    @Test
+//    public void shouldFindEntityByNameCorrect() {
+//        final String cola = "cola";
+//        final Product product = productDao.save(
+//                Product.builder()
+//                        .title(cola)
+//                        .build()
+//        );
+//        final Product potentialCola = productDao.getByTitle(cola);
+//
+//        assertEquals(product.getId(), potentialCola.getId());
+//    }
+//
+//
+//
+//    @Test
+//    public void shouldReturnAllProducts() {
+//        final String cola = "cola";
+//        productDao.save(
+//                Product.builder()
+//                        .title(cola)
+//                        .build()
+//        );
+//
+//        final List<Product> all = productDao.getAll();
+//
+//        assertEquals(1, all.size());
+//        final Product product = all.get(0);
+//        assertEquals("cola", product.getTitle());
+//        assertNotNull(product.getId());
+//    }
 }

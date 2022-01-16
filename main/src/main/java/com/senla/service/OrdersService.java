@@ -10,6 +10,7 @@ import com.senla.exception.OrderNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -62,6 +63,15 @@ public class OrdersService {
         return mapper.map(updatedOrders, OrderGetDto.class);
     }
 
+    public void removeProductFromOrder(Integer orderId,Integer productId){
+        Orders orders = ordersDao.getById(orderId);
+        orders.getProductList().remove(productDao.getById(productId));
+        Product product = productDao.getById(productId);
+        orders.setSum(orders.getSum()-(product.getPrice()*product.getPurchaseQuantity()));
+        ordersDao.update(orders);
+    }
+
+
     public Integer getSumOrder(Product product) {
         int allPrice = 0;
         int price;
@@ -69,8 +79,6 @@ public class OrdersService {
         number = product.getPurchaseQuantity();
         price = product.getPrice();
         allPrice = (number * price) + allPrice;
-
-
         return allPrice;
     }
 }

@@ -1,5 +1,6 @@
 package com.senla.entity;
 
+import liquibase.pro.packaged.S;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,8 +20,12 @@ public class DiscountCard {
     private Integer id;
     @Column(name = "number")
     private String number;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private Status status;
 
-
+//    @OneToOne
+//    private Details details;
     @Override
     public String toString() {
         return "DiscountCard{" +

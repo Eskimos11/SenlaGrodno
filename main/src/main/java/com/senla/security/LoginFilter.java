@@ -1,6 +1,7 @@
 package com.senla.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.senla.entity.User;
 import lombok.Data;
 import lombok.SneakyThrows;
 import org.springframework.http.HttpHeaders;
@@ -8,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -24,7 +26,6 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         this.objectMapper = objectMapper;
         this.jwtProvider = jwtProvider;
     }
-
 
     @Override
     @SneakyThrows

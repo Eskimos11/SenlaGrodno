@@ -1,6 +1,7 @@
 package com.senla.entity;
 
 import lombok.*;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.List;
@@ -18,14 +19,14 @@ public class Orders {
     @SequenceGenerator(name = "order-id-sequence", sequenceName = "orders_seq", allocationSize = 1)
     private Integer id;
     //В методе getProducts выдает NullPointerException (пока не иправил)
-    @ManyToMany(fetch= FetchType.EAGER, cascade= CascadeType.ALL)
+    @ManyToMany(fetch= FetchType.EAGER, cascade= {CascadeType.PERSIST,CascadeType.MERGE
+                                                 ,CascadeType.REFRESH,CascadeType.DETACH,})
     @JoinTable(name = "orders_products",
             joinColumns = @JoinColumn(name = "orders_id"),
             inverseJoinColumns = @JoinColumn(name = "products_id"))
     private List<Product> productList;
     @Column(name = "sum")
     private Integer sum;
-
 
     @Override
     public String toString() {
