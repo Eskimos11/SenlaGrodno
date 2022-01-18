@@ -2,9 +2,8 @@ package com.senla.controller;
 
 import com.senla.controller.dto.OrdersDto.OrderGetDto;
 import com.senla.controller.dto.OrdersDto.OrdersDto;
+import com.senla.entity.Orders;
 import com.senla.entity.User;
-import com.senla.security.JwtAuthenticationFilter;
-import com.senla.security.UserDetailServiceImpl;
 import com.senla.service.OrdersService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -65,4 +64,12 @@ public class OrdersController {
             , @PathVariable Integer productId){
         ordersService.removeProductFromOrder(ordersId, productId);
     }
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @PutMapping("/{ordersId}/{numberCard}")
+    public OrdersDto addDiscountCard (@PathVariable Integer ordersId,
+                                   @PathVariable String numberCard){
+       return ordersService.addDiscountCard(ordersId,numberCard);
+    }
+
+
 }

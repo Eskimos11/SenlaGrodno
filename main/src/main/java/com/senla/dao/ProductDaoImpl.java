@@ -40,6 +40,13 @@ public class ProductDaoImpl extends AbstractDao<Product, Integer> implements Pro
                         .where(criteriaBuilder.equal(from.get(Product_.title), title))
         ).getSingleResult();
     }
+    @Override
+    public List<Product> getProductLimit(Integer amount) {
+
+        return  entityManager.createQuery(
+                "Select Product FROM Product p  where p.amount < :id", Product.class
+        ).setParameter("id", amount).getResultList();
+    }
 
     @Override
     public List<Product> getAll() {

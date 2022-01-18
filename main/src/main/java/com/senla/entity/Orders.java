@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -27,6 +28,9 @@ public class Orders {
     private List<Product> productList;
     @Column(name = "sum")
     private Integer sum;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "discountCard_id")
+    private DiscountCard discountCard;
 
     @Override
     public String toString() {

@@ -1,12 +1,15 @@
 package com.senla.service;
 
+import com.senla.api.dao.DiscountCardDao;
 import com.senla.api.dao.OrdersDao;
 import com.senla.api.dao.ProductDao;
 import com.senla.controller.dto.OrdersDto.OrderGetDto;
 import com.senla.controller.dto.OrdersDto.OrdersDto;
 import com.senla.entity.Orders;
 import com.senla.entity.Product;
+import com.senla.exception.DiscountCardFoundException;
 import com.senla.exception.OrderNotFoundException;
+import com.senla.exception.UserFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.modelmapper.ModelMapper;
@@ -23,6 +26,8 @@ import static java.util.Optional.ofNullable;
 public class OrdersService {
     private final OrdersDao ordersDao;
     private final ProductDao productDao;
+    private final DiscountCardDao discountCardDao;
+    private final DiscountCardService discountCardService;
     private final ModelMapper mapper;
 
     public OrdersDto saveOrder(OrdersDto ordersDto) {
@@ -72,7 +77,7 @@ public class OrdersService {
     }
 
 
-    public Integer getSumOrder(Product product) {
+    private Integer getSumOrder(Product product) {
         int allPrice = 0;
         int price;
         int number;
@@ -80,6 +85,17 @@ public class OrdersService {
         price = product.getPrice();
         allPrice = (number * price) + allPrice;
         return allPrice;
+    }
+    public OrdersDto addDiscountCard(Integer orderId, String numberCard){
+        Orders orders = ordersDao.getById(orderId);
+        if(orders.getDiscountCard()==null) {
+            orders.setDiscountCard(discountCardDao.getByNumber(numberCard));
+            discountCardService.checkStatus(numberCard);
+            discountCardDao.getByNumber(numberCard).setBalance(orders.getSum());
+            discountCardService.skidka(orders,discountCardDao.getByNumber(numberCard));
+        }else throw new DiscountCardFoundException("Карта введена");
+         Orders updateOrders = ordersDao.update(orders);
+         return mapper.map(updateOrders,OrdersDto.class);
     }
 }
 

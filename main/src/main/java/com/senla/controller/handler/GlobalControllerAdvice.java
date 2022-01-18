@@ -1,9 +1,11 @@
 package com.senla.controller.handler;
 
 import com.senla.controller.handler.dto.ErrorMessageDto;
+import com.senla.exception.DiscountCardFoundException;
 import com.senla.exception.ProviderNotFoundException;
 import com.senla.exception.UserFoundException;
 import com.senla.exception.UserNotFoundException;
+import liquibase.pro.packaged.E;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -27,6 +29,11 @@ public class GlobalControllerAdvice {
     public ErrorMessageDto catchRuntimeException(UserFoundException userFoundException) {
         return new ErrorMessageDto("Логин " + userFoundException.getLogin() + " занят");
     }
+    @ExceptionHandler(DiscountCardFoundException.class)
+    public ErrorMessageDto catchRuntimeException(DiscountCardFoundException discountCardFoundException) {
+        return new ErrorMessageDto("Карту уже приложили");
+    }
+
 
 //
 //    @ExceptionHandler(RuntimeException.class)

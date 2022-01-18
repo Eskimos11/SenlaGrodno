@@ -1,7 +1,10 @@
 CREATE TABLE discount_cards (
   id int NOT NULL,
   number varchar(45) NOT NULL,
-  PRIMARY KEY (id)
+  balance int,
+  details_id int,
+  PRIMARY KEY (id),
+  FOREIGN KEY (details_id) REFERENCES details(id),
 ) ;
     CREATE SEQUENCE discountcard_seq
         INCREMENT 1

@@ -40,13 +40,7 @@ public class OrdersDaoImpl extends AbstractDao<Orders, Integer> implements Order
         entityManager.createQuery(query).executeUpdate();
     }
 
-    @Override
-    public List<Product> getProduct(Integer id) {
 
-         return  entityManager.createQuery(
-                "Select Product FROM Product p join Orders.productList b where b.id = :id", Product.class
-        ).setParameter("id", id).getResultList();
-    }
 }
 
 

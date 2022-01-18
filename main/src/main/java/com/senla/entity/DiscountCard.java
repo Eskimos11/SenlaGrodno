@@ -20,12 +20,16 @@ public class DiscountCard {
     private Integer id;
     @Column(name = "number")
     private String number;
+    @Column(name = "balance")
+    private Integer balance;
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private Status status;
 
-//    @OneToOne
-//    private Details details;
+    @OneToOne(cascade= {CascadeType.PERSIST,CascadeType.MERGE
+            ,CascadeType.REFRESH,CascadeType.DETACH,})
+    @JoinColumn(name = "details_id")
+    private Details details;
     @Override
     public String toString() {
         return "DiscountCard{" +

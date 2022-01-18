@@ -16,4 +16,6 @@ public interface ProductDao extends GenericDao<Product, Integer> {
 
     List<Product> getAll();
 
+    List<Product> getProductLimit(Integer amount);
+
 }

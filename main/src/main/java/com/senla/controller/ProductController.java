@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/products")
@@ -29,6 +31,9 @@ public class ProductController {
     @PutMapping
     public ProductDto updateCustomer(@RequestBody ProductDto productDto) {
         return productService.updateProduct(productDto);
-
+    }
+    @GetMapping("/{amount}")
+    private List<ProductDto> getProductLimit(@PathVariable Integer amount){
+        return productService.getProductLimit(amount);
     }
 }

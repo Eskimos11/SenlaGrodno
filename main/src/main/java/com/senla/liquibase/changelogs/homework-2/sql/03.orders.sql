@@ -1,6 +1,8 @@
 CREATE TABLE orders (
   id int NOT NULL,
   sum int,
+  discountCard_id int,
+  FOREIGN KEY (discountCard_id) REFERENCES discountCard(id),
   PRIMARY KEY (id)
 ) ;
 

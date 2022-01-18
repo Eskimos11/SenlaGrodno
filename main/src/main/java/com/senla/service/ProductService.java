@@ -10,6 +10,9 @@ import lombok.extern.log4j.Log4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Type;
+import java.util.List;
+
 import static java.util.Optional.ofNullable;
 
 @Log4j
@@ -40,6 +43,11 @@ public class ProductService {
         final Product product = mapper.map(productDto, Product.class);
         final Product productUpdate = productDao.update(product);
         return mapper.map(productUpdate, ProductDto.class);
+    }
+
+    public List<ProductDto> getProductLimit(Integer amount) {
+        List<Product> productList = productDao.getProductLimit(amount);
+        return (List<ProductDto>) mapper.map(productList,ProductDto.class);
     }
 
 }

@@ -15,6 +15,8 @@ import javax.persistence.*;
 public class DiscountCardDto {
     private Integer id;
     private String number;
+    private Integer balance;
     private Status status;
+    private Details details;
 
 }
