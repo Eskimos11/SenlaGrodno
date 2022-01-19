@@ -4,7 +4,6 @@ import com.senla.entity.DiscountCard;
 
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Transactional
 public interface DiscountCardDao  extends GenericDao<DiscountCard, Integer> {
@@ -15,5 +14,4 @@ public interface DiscountCardDao  extends GenericDao<DiscountCard, Integer> {
 
     DiscountCard getByNumber(String number);
 
-    List<DiscountCard> getAll();
 }

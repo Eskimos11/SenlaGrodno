@@ -1,10 +1,8 @@
 package com.senla.entity;
 
 import lombok.*;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -19,8 +17,7 @@ public class Orders {
             generator = "order-id-sequence")
     @SequenceGenerator(name = "order-id-sequence", sequenceName = "orders_seq", allocationSize = 1)
     private Integer id;
-    //В методе getProducts выдает NullPointerException (пока не иправил)
-    @ManyToMany(fetch= FetchType.EAGER, cascade= {CascadeType.PERSIST,CascadeType.MERGE
+    @ManyToMany(fetch= FetchType.LAZY, cascade= {CascadeType.PERSIST,CascadeType.MERGE
                                                  ,CascadeType.REFRESH,CascadeType.DETACH,})
     @JoinTable(name = "orders_products",
             joinColumns = @JoinColumn(name = "orders_id"),
@@ -29,7 +26,7 @@ public class Orders {
     @Column(name = "sum")
     private Integer sum;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "discountCard_id")
+    @JoinColumn(name = "discount_card_id")
     private DiscountCard discountCard;
 
     @Override

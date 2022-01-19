@@ -1,14 +1,11 @@
 package com.senla.controller.dto.UserDto;
 
 import com.senla.entity.Details;
-import com.senla.entity.Role;
-import liquibase.pro.packaged.R;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 
 @Data
 @Builder

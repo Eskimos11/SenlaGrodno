@@ -1,9 +1,7 @@
 package com.senla.controller;
 
 import com.senla.controller.dto.DetailsDto;
-import com.senla.controller.dto.UserDto.UserCreateDto;
 import com.senla.service.DetailsService;
-import com.senla.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

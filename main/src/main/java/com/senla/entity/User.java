@@ -3,17 +3,15 @@ package com.senla.entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
-import java.util.Collection;
+
 
 @Entity
 @Table(name = "users")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class User {
 
     @Id
@@ -27,11 +25,12 @@ public class User {
     @Column(name = "password", unique = true)
     private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY, cascade= {CascadeType.PERSIST})
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade= {CascadeType.PERSIST,CascadeType.MERGE
+            ,CascadeType.REFRESH,CascadeType.DETACH})
     @JoinColumn(name = "details_id")
     private Details details;
 
@@ -46,6 +45,7 @@ public class User {
     public String getUsername() {
         return username;
     }
+
 
     public void setUsername(String username) {
         this.username = username;

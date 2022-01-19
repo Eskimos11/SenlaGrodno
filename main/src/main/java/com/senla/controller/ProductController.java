@@ -3,7 +3,6 @@ package com.senla.controller;
 import com.senla.controller.dto.ProductDto.ProductDto;
 import com.senla.service.ProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,8 +31,13 @@ public class ProductController {
     public ProductDto updateCustomer(@RequestBody ProductDto productDto) {
         return productService.updateProduct(productDto);
     }
-    @GetMapping("/{amount}")
+    @GetMapping("/limit/{amount}")
     private List<ProductDto> getProductLimit(@PathVariable Integer amount){
-        return productService.getProductLimit(amount);
+        return  productService.getProductLimit(amount);
     }
+    @GetMapping("/order/{id}")
+    private List<ProductDto> getProductOrder(@PathVariable Integer id){
+        return  productService.getProductOrders(id);
+    }
+
 }

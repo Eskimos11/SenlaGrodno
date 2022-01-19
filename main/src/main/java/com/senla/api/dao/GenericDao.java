@@ -1,6 +1,5 @@
 package com.senla.api.dao;
 
-
 import javax.transaction.Transactional;
 
 @Transactional

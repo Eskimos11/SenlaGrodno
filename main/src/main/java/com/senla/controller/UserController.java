@@ -25,25 +25,29 @@ public class UserController {
     public UserDto createUser(@RequestBody UserCreateDto userDto) {
         return userService.saveUser(userDto);
     }
+
     @PreAuthorize("hasRole('ROLE_USER')")
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Integer id) {
         userService.deleteUser(id);
     }
+
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping(value = "/{id}")
-    public UserCreateDto getById(@AuthenticationPrincipal UserDetails userDetails, @PathVariable Integer id) {
+    public UserDto getById(@PathVariable Integer id, @AuthenticationPrincipal UserDetails userDetails) {
         return userService.getUserInfo(id);
     }
+
     @PreAuthorize("hasRole('ROLE_USER')")
     @PutMapping
     public UserDto updateUser(@RequestBody UserDto userDto) {
         return userService.updateUser(userDto);
     }
-    @PutMapping("/{userId}/")
+
+    @PutMapping("/{userId}")
     public UserDto addDetails(@PathVariable Integer userId,
-                              @RequestBody DetailsDto detailsDto){
-        return userService.addDetails(userId,detailsDto);
+                              @RequestBody DetailsDto detailsDto) {
+        return userService.addDetails(userId, detailsDto);
     }
 
 }

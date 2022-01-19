@@ -1,6 +1,5 @@
 package com.senla.entity;
 
-import liquibase.pro.packaged.S;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,14 +26,17 @@ public class DiscountCard {
     private Status status;
 
     @OneToOne(cascade= {CascadeType.PERSIST,CascadeType.MERGE
-            ,CascadeType.REFRESH,CascadeType.DETACH,})
+            ,CascadeType.REFRESH,CascadeType.DETACH})
     @JoinColumn(name = "details_id")
     private Details details;
+
     @Override
     public String toString() {
         return "DiscountCard{" +
                 "id=" + id +
                 ", number='" + number + '\'' +
+                ", balance=" + balance +
+                ", status=" + status +
                 '}';
     }
 }

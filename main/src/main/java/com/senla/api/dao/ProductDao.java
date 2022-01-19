@@ -1,5 +1,6 @@
 package com.senla.api.dao;
 
+import com.senla.entity.Orders;
 import com.senla.entity.Product;
 import com.senla.entity.User;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,8 +15,8 @@ public interface ProductDao extends GenericDao<Product, Integer> {
 
     Product getByTitle(String title);
 
-    List<Product> getAll();
-
     List<Product> getProductLimit(Integer amount);
+
+    List<Product> getProduct(Integer id);
 
 }

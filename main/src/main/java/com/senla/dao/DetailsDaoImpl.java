@@ -1,15 +1,11 @@
 package com.senla.dao;
 
 import com.senla.api.dao.DetailsDao;
-import com.senla.api.dao.OrdersDao;
-import com.senla.entity.Details;
-import com.senla.entity.Orders;
-import com.senla.entity.Product;
-import com.senla.entity.User;
-import liquibase.pro.packaged.D;
+import com.senla.entity.*;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
+import javax.persistence.criteria.Root;
 
 @Repository
 public class DetailsDaoImpl extends AbstractDao<Details, Integer> implements DetailsDao {
@@ -20,11 +16,15 @@ public class DetailsDaoImpl extends AbstractDao<Details, Integer> implements Det
 
     @Override
     public Details update(Details details) {
-        return null;
+        return entityManager.merge(details);
     }
 
     @Override
-    public void deleteById(Integer integer) {
-
+    public void deleteById(Integer id) {
+        final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        final CriteriaDelete<Details> query = criteriaBuilder.createCriteriaDelete(Details.class);
+        final Root<Details> rows = query.from(Details.class);
+        query.where(criteriaBuilder.equal(rows.get(Details_.id), id));
+        entityManager.createQuery(query).executeUpdate();
     }
 }

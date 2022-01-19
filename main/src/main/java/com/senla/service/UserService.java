@@ -5,6 +5,7 @@ import com.senla.api.dao.UserDao;
 import com.senla.controller.dto.DetailsDto;
 import com.senla.controller.dto.UserDto.UserCreateDto;
 import com.senla.controller.dto.UserDto.UserDto;
+import com.senla.dao.RoleDao;
 import com.senla.entity.Details;
 import com.senla.entity.User;
 import com.senla.exception.UserFoundException;
@@ -12,9 +13,9 @@ import com.senla.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import javax.persistence.NoResultException;
 import static java.util.Optional.ofNullable;
 
@@ -22,16 +23,18 @@ import static java.util.Optional.ofNullable;
 @Service
 @RequiredArgsConstructor
 @Log4j
+
 public class UserService {
 
     private final UserDao userDao;
     private final DetailsDao detailsDao;
+    private final RoleDao roleDao;
 
     private final ModelMapper mapper;
     private final PasswordEncoder passwordEncoder;
 
-    public UserDto saveUser(UserCreateDto UserCreateDto) {
-        final User user = mapper.map(UserCreateDto, User.class);
+    public UserDto saveUser(UserCreateDto UserDto) {
+        final User user = mapper.map(UserDto, User.class);
         User savedUser = null;
         try {
             userDao.getByName(user.getUsername());
@@ -39,7 +42,8 @@ public class UserService {
             throw new UserFoundException(user.getUsername());
         }catch (NoResultException e){
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-           savedUser = userDao.save(user);
+            user.setRole(roleDao.getById(2));
+           savedUser = userDao.update(user);
 
         }return mapper.map(savedUser, UserDto.class);
     }
@@ -48,10 +52,10 @@ public class UserService {
         userDao.deleteById(id);
     }
 
-    public UserCreateDto getUserInfo(Integer id) {
+    public UserDto getUserInfo(Integer id) {
         final User user = ofNullable(userDao.getById(id))
                 .orElseThrow(() -> new UserNotFoundException(id));
-        return mapper.map(user, UserCreateDto.class);
+        return mapper.map(user, UserDto.class);
     }
 
     public UserDto updateUser(UserDto userDto) {

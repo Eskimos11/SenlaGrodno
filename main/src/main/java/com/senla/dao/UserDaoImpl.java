@@ -4,9 +4,7 @@ import com.senla.api.dao.UserDao;
 import com.senla.entity.User;
 import com.senla.entity.User_;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.criteria.*;
-import java.util.List;
 
 @Repository
 public class UserDaoImpl extends AbstractDao<User, Integer> implements UserDao {
@@ -27,15 +25,6 @@ public class UserDaoImpl extends AbstractDao<User, Integer> implements UserDao {
         query.where(criteriaBuilder.equal(rows.get(User_.username), name));
         return entityManager.createQuery(query).getSingleResult();
     }
-    @Override
-    public List<User> getAll() {
-        final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        final CriteriaQuery<User> query = criteriaBuilder.createQuery(User.class);
-        query.from(User.class);
-        return entityManager.createQuery(query).getResultList();
-    }
-
-
 
     @Override
     public User getByNameWithRole(String name) {
@@ -51,7 +40,8 @@ public class UserDaoImpl extends AbstractDao<User, Integer> implements UserDao {
     public void deleteById(Integer id) {
         final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         final CriteriaDelete<User> query = criteriaBuilder.createCriteriaDelete(User.class);
-        query.from(User.class);
+        final Root<User> rows = query.from(User.class);
+        query.where(criteriaBuilder.equal(rows.get(User_.id), id));
         entityManager.createQuery(query).executeUpdate();
     }
 }

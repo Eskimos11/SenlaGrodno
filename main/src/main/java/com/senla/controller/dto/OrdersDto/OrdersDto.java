@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrdersDto {
-
     private Integer id;
     private Integer sum = 0;
 
