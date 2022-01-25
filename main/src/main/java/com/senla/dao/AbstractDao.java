@@ -1,6 +1,7 @@
 package com.senla.dao;
 
 import com.senla.api.dao.GenericDao;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -24,7 +25,7 @@ public abstract class AbstractDao<Entity, Id> implements GenericDao<Entity, Id> 
 
     @Override
     public Entity getById(Id id) {
-        return entityManager.find(entityClass, id);
+        return entityManager.find(entityClass,id);
     }
 }
 

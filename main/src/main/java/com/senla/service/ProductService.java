@@ -8,8 +8,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.stream.Collectors;
+
 import static java.util.Optional.ofNullable;
 
 @Log4j
@@ -20,7 +22,7 @@ public class ProductService {
     private final ProductDao productDao;
     private final ModelMapper mapper;
 
-    public ProductDto saveProduct(ProductDto productDto) {
+    public ProductDto createProduct(ProductDto productDto) {
         final Product product = mapper.map(productDto, Product.class);
         final Product productSave = productDao.save(product);
         return mapper.map(productSave, ProductDto.class);

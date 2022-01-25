@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class DetailsDto {
 
-    private String name;
+    private String firstName;
     private String lastName;
     private String city;
     private String phoneNumber;

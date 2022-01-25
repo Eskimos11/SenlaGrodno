@@ -5,7 +5,10 @@ import com.senla.api.dao.DiscountCardDao;
 import com.senla.api.dao.OrdersDao;
 import com.senla.controller.dto.DetailsDto;
 import com.senla.controller.dto.DiscountCardDto.DiscountCardDto;
-import com.senla.entity.*;
+import com.senla.entity.Details;
+import com.senla.entity.DiscountCard;
+import com.senla.entity.Orders;
+import com.senla.entity.Status;
 import com.senla.exception.CardNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -38,7 +41,7 @@ public class DiscountCardService {
         return mapper.map(savedDiscountCard, DiscountCardDto.class);
     }
 
-    public DiscountCardDto getUserDiscountCard(Integer id) {
+    public DiscountCardDto getDiscountCard(Integer id) {
         final DiscountCard discountCard = ofNullable(discountCardDao.getById(id))
                 .orElseThrow(() -> new CardNotFoundException(id));
         return mapper.map(discountCard, DiscountCardDto.class);
@@ -73,13 +76,13 @@ public class DiscountCardService {
         return discountCardDao.update(discountCard);
     }
 
-    public DiscountCard discount(Orders orders, DiscountCard discountCard) {
+    public DiscountCard giveDiscount(Orders orders, DiscountCard discountCard) {
         if (discountCard.getStatus().equals(Status.BRONZE)) {
             orders.setSum(orders.getSum() - 3);
         } else if (discountCard.getStatus().equals(Status.SILVER)) {
             orders.setSum(orders.getSum() - 4);
         } else if (discountCard.getStatus().equals(Status.GOLD)) {
-            orders.setSum(orders.getSum() - 4);
+            orders.setSum(orders.getSum() - 5);
         }
         return discountCard;
     }

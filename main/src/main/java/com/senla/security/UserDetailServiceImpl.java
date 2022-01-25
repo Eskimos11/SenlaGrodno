@@ -4,7 +4,6 @@ import com.senla.api.dao.UserDao;
 import com.senla.entity.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -26,6 +25,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         var user = Optional.of(userDao.getByNameWithRole(username))
                 .orElseThrow(() -> new UsernameNotFoundException(username + " not found "));
+
         return new User(
                 user.getUsername(),
                 user.getPassword(),

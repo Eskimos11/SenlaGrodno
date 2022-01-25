@@ -12,11 +12,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Log4j
 public class DetailsService {
+
     private final DetailsDao detailsDao;
     private final ModelMapper mapper;
 
     public DetailsDto getInfoDetails(Integer id) {
-        final Details details =detailsDao.getById(id);
+        final Details details = detailsDao.getById(id);
         return mapper.map(details, DetailsDto.class);
     }
 

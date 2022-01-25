@@ -44,4 +44,5 @@ public class UserDaoImpl extends AbstractDao<User, Integer> implements UserDao {
         query.where(criteriaBuilder.equal(rows.get(User_.id), id));
         entityManager.createQuery(query).executeUpdate();
     }
+
 }

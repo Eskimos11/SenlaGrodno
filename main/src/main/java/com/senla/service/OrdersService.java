@@ -8,12 +8,14 @@ import com.senla.entity.DiscountCard;
 import com.senla.entity.Orders;
 import com.senla.entity.Product;
 import com.senla.exception.DiscountCardFoundException;
+import com.senla.exception.NoAccessRightsException;
 import com.senla.exception.OrderNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 import static java.util.Optional.ofNullable;
@@ -21,7 +23,6 @@ import static java.util.Optional.ofNullable;
 @Service
 @RequiredArgsConstructor
 @Log4j
-
 public class OrdersService {
     private final OrdersDao ordersDao;
     private final ProductDao productDao;
@@ -29,8 +30,9 @@ public class OrdersService {
     private final DiscountCardService discountCardService;
     private final ModelMapper mapper;
 
-    public OrdersDto saveOrder(OrdersDto ordersDto) {
+    public OrdersDto createOrder(OrdersDto ordersDto, Integer id) {
         final Orders orders = mapper.map(ordersDto, Orders.class);
+        orders.setUserId(id);
         final Orders savedOrders = ordersDao.save(orders);
         return mapper.map(savedOrders, OrdersDto.class);
     }
@@ -46,14 +48,19 @@ public class OrdersService {
         return mapper.map(orders, OrdersDto.class);
     }
 
-    public OrdersDto updateOrder(OrdersDto ordersDto) {
+    public OrdersDto updateOrder(OrdersDto ordersDto, Integer id) {
         final Orders orders = mapper.map(ordersDto, Orders.class);
+        if (!orders.getUserId().equals(id))
+            throw new NoAccessRightsException("");
         final Orders updatedOrders = ordersDao.update(orders);
         return mapper.map(updatedOrders, OrdersDto.class);
     }
+
     @Transactional
-    public OrdersDto addProducts(Integer orderId, Integer productId, Integer amount) {
+    public OrdersDto addProducts(Integer orderId, Integer productId, Integer amount, Integer id) {
         Orders orders = ordersDao.getById(orderId);
+        if (!orders.getUserId().equals(id))
+            throw new NoAccessRightsException("");
         Product product = productDao.getById(productId);
         List<Product> productListOrders = productDao.getProduct(orderId);
         product.setPurchaseQuantity(amount);
@@ -70,28 +77,31 @@ public class OrdersService {
 
 
     private Integer getSumOrder(Product product) {
-        int allPrice = 0;
+        int totalAmount = 0;
         int price;
         int number;
         number = product.getPurchaseQuantity();
         price = product.getPrice();
-        allPrice = (number * price) + allPrice;
-        return allPrice;
+        totalAmount = (number * price) + totalAmount;
+        return totalAmount;
     }
+
     @Transactional
-    public OrdersDto addDiscountCard(Integer orderId, String numberCard){
+    public OrdersDto addDiscountCard(Integer orderId, String numberCard, Integer id) {
         Orders orders = ordersDao.getById(orderId);
-        if(orders.getDiscountCard()==null) {
+        if (!orders.getUserId().equals(id))
+            throw new NoAccessRightsException("");
+        if (orders.getDiscountCard() == null) {
             orders.setDiscountCard(discountCardDao.getByNumber(numberCard));
             discountCardService.checkStatus(numberCard);
             DiscountCard discountCard = discountCardDao.getByNumber(numberCard);
             discountCard.setBalance(discountCard.getBalance() + orders.getSum());
-            discountCardService.discount(orders,discountCardDao.getByNumber(numberCard));
+            discountCardService.giveDiscount(orders, discountCardDao.getByNumber(numberCard));
             discountCardDao.update(discountCard);
-        }else throw new DiscountCardFoundException("Карта введена");
+        } else throw new DiscountCardFoundException("Карта введена");
 
-         Orders updateOrders = ordersDao.update(orders);
-         return mapper.map(updateOrders,OrdersDto.class);
+        Orders updateOrders = ordersDao.update(orders);
+        return mapper.map(updateOrders, OrdersDto.class);
     }
 }
 

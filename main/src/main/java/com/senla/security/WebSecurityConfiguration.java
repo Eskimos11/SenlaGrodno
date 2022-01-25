@@ -49,4 +49,5 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .addFilter(new LoginFilter(jwtProvider,objectMapper(),authenticationManager()))
                 .addFilterBefore(jwtAuthenticationFilter,LoginFilter.class);
     }
+
 }

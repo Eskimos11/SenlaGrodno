@@ -2,8 +2,8 @@
 INSERT INTO role(id, name) VALUES (1, 'ADMIN');
 INSERT INTO role(id, name) VALUES (2, 'USER');
 --DETAILS
-INSERT INTO details(id, name, lastname, city, phone_number)VALUES (1,'Pavel','Kurilo', 'Grodno', '+375297279574');
-INSERT INTO details(id, name, lastname, city, phone_number)VALUES (2,'Anna','Lalal', 'Grodno', '+375291231231');
+INSERT INTO details(id, first_name, last_name, city, phone_number)VALUES (1,'Pavel','Kurilo', 'Grodno', '+375297279574');
+INSERT INTO details(id, first_name, last_name, city, phone_number)VALUES (2,'Anna','Lalal', 'Grodno', '+375291231231');
 --USERS
 INSERT INTO users(id, username, password, role_id, details_id)VALUES (1,'pavel','123',1,1);
 --PRODUCTS

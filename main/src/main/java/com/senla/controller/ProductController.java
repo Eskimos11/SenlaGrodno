@@ -3,6 +3,7 @@ package com.senla.controller;
 import com.senla.controller.dto.ProductDto.ProductDto;
 import com.senla.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,29 +15,36 @@ public class ProductController {
 
     private final ProductService productService;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     public ProductDto createProduct(@RequestBody ProductDto productDto) {
-        return productService.saveProduct(productDto);
+        return productService.createProduct(productDto);
     }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable Integer id) {
         productService.deleteProduct(id);
     }
-    @GetMapping(value = "/{id}")
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @GetMapping(value = "/{id}")
     public ProductDto getById(@PathVariable Integer id) {
         return productService.getProductInfo(id);
     }
+
     @PutMapping
-    public ProductDto updateCustomer(@RequestBody ProductDto productDto) {
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ProductDto updateProduct(@RequestBody ProductDto productDto) {
         return productService.updateProduct(productDto);
     }
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping("/limit/{amount}")
-    private List<ProductDto> getProductLimit(@PathVariable Integer amount){
+    public List<ProductDto> getProductLimit(@PathVariable Integer amount){
         return  productService.getProductLimit(amount);
     }
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping("/order/{id}")
-    private List<ProductDto> getProductOrder(@PathVariable Integer id){
+    public List<ProductDto> getProductOrder(@PathVariable Integer id){
         return  productService.getProductOrders(id);
     }
 

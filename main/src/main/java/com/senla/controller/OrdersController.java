@@ -17,47 +17,48 @@ public class OrdersController {
 
     private final OrdersService ordersService;
 
-    @PreAuthorize("hasRole('ROLE_USER')")
-    @RequestMapping(value = "", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @PostMapping
     public OrdersDto createOrders(@RequestBody OrdersDto ordersDto
-            , @AuthenticationPrincipal UserDetails userDetails) {
-
-        return ordersService.saveOrder(ordersDto);
+            , @AuthenticationPrincipal Integer id) {
+        return ordersService.createOrder(ordersDto,id);
     }
 
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @DeleteMapping("/{id}")
     public void deleteOrder(@PathVariable Integer id) {
         ordersService.deleteOrder(id);
     }
 
     @GetMapping(value = "/{id}")
-    @PreAuthorize("hasRole('ROLE_USER')")
-    public OrdersDto getById(@PathVariable Integer id, @AuthenticationPrincipal UserDetails userDetails) {
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    public OrdersDto getById(@PathVariable Integer id) {
         return ordersService.getInfoOrder(id);
     }
 
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @PutMapping
-    public OrdersDto updateOrder(@RequestBody OrdersDto ordersDto) {
-        return ordersService.updateOrder(ordersDto);
+    public OrdersDto updateOrder(@RequestBody OrdersDto ordersDto,
+                                 @AuthenticationPrincipal Integer userId) {
+        return ordersService.updateOrder(ordersDto,userId);
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @PutMapping("/{ordersDto}/{productDto}/{count}")
-    public OrdersDto addProducts(
+    public OrdersDto addProduct(
             @PathVariable Integer ordersDto
             , @PathVariable Integer productDto
             , @PathVariable Integer count,
-            @AuthenticationPrincipal UserDetails userDetails) {
-        return ordersService.addProducts(ordersDto, productDto, count);
+            @AuthenticationPrincipal Integer userId) {
+        return ordersService.addProducts(ordersDto, productDto, count,userId);
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @PutMapping("/{ordersId}/{numberCard}")
     public OrdersDto addDiscountCard(@PathVariable Integer ordersId,
-                                     @PathVariable String numberCard) {
-        ordersService.addDiscountCard(ordersId, numberCard);
+                                     @PathVariable String numberCard,
+                                     @AuthenticationPrincipal Integer userId) {
+        ordersService.addDiscountCard(ordersId, numberCard,userId);
         return ordersService.getInfoOrder(ordersId);
     }
 

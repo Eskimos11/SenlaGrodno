@@ -1,4 +1,4 @@
-package com.senla.controller.dto.OrdersDto;
+package com.senla.controller.dto.ProductDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrdersDto {
+public class ProductCreateDto {
 
     private Integer id;
-    private Integer sum = 0;
+    private String title;
+    private Integer price;
+    private Integer amount;
 
 }

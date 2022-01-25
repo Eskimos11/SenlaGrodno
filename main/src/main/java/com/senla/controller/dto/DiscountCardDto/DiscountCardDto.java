@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DiscountCardDto {
+
     private Integer id;
     private String number;
     private Integer balance;

@@ -19,9 +19,9 @@ public class Details {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "details-id-sequence")
     @SequenceGenerator(name = "details-id-sequence", sequenceName = "details_seq", allocationSize = 1)
     private Integer id;
-    @Column(name = "name")
-    private String name;
-    @Column(name = "lastName", unique = true)
+    @Column(name = "first_name")
+    private String firstName;
+    @Column(name = "last_name", unique = true)
     private String lastName;
     @Column(name = "city", unique = true)
     private String city;
@@ -33,7 +33,7 @@ public class Details {
     public String toString() {
         return "Details{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", city='" + city + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +

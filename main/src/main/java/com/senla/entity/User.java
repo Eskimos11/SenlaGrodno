@@ -3,7 +3,11 @@ package com.senla.entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
+import java.util.Collection;
 
 
 @Entity
@@ -11,8 +15,7 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
-public class User {
+public class User  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user-id-sequence")
@@ -49,9 +52,6 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-    public Class<User> getCustomUser() {
-        return User.class;
     }
 
 

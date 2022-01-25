@@ -41,11 +41,8 @@ public class ProductDaoImpl extends AbstractDao<Product, Integer> implements Pro
 
     @Override
     public List<Product> getProductLimit(Integer amount) {
-
-        return entityManager.createQuery("Select t from Product t where t.amount <:amount")
-                .setParameter("amount", amount).getResultList();
-
-
+        return  entityManager.createQuery("Select t from Product t where t.amount <:amount")
+            .setParameter("amount", amount).getResultList();
     }
 
     @Override

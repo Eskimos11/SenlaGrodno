@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.senla.entity.User;
 import lombok.Data;
 import lombok.SneakyThrows;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,6 +27,10 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         this.objectMapper = objectMapper;
         this.jwtProvider = jwtProvider;
     }
+    @Bean
+    public LoginFilter getLoginFiler(JwtProvider jwtProvider, ObjectMapper objectMapper, AuthenticationManager authenticationManager){
+        return new LoginFilter(jwtProvider,objectMapper,authenticationManager);
+    }
 
     @Override
     @SneakyThrows
@@ -44,6 +49,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         String token = prepareJwt(authentication);
         response.addHeader(HttpHeaders.AUTHORIZATION,token);
     }
+
     private String prepareJwt(Authentication authentication){
         return jwtProvider.buildToken(authentication.getName());
     }
