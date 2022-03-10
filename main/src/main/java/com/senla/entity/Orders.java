@@ -25,6 +25,9 @@ public class Orders {
     private List<Product> productList;
     @Column(name = "sum")
     private Integer sum;
+//    @ManyToOne(fetch = FetchType.LAZY, cascade= {CascadeType.PERSIST})
+//    @JoinColumn(name = "role_id")
+//    private ProductAmount productAmount;
     @Column(name = "user_id")
     private Integer userId;
     @ManyToOne(cascade = CascadeType.ALL)

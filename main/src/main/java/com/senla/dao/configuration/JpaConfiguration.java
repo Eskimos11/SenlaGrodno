@@ -34,8 +34,6 @@ public class JpaConfiguration {
     private String databasePassword;
     @Value("#{${database.hibernate}}")
     private Map<String, String> hibernateAdditionalProperties;
-    @Value("${hibernate.show_sql}")
-    private String showSql;
 
     @Bean
     @SneakyThrows
@@ -56,14 +54,10 @@ public class JpaConfiguration {
         localContainerEntityManagerFactoryBean.setPackagesToScan("com.senla.entity");
         localContainerEntityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
         localContainerEntityManagerFactoryBean.setDataSource(dataSource);
-        localContainerEntityManagerFactoryBean.setJpaProperties(getJpaProperties());
+        localContainerEntityManagerFactoryBean.setJpaPropertyMap(hibernateAdditionalProperties);
         return localContainerEntityManagerFactoryBean;
     }
-    private Properties getJpaProperties(){
-        Properties properties = new Properties();
-        properties.setProperty("hibernate.show_sql",showSql);
-        return properties;
-    }
+
 
 
 }

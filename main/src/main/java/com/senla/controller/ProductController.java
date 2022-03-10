@@ -1,5 +1,6 @@
 package com.senla.controller;
 
+import com.senla.controller.dto.ProductDto.ProductCreateDto;
 import com.senla.controller.dto.ProductDto.ProductDto;
 import com.senla.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,7 @@ public class ProductController {
 
     private final ProductService productService;
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @PostMapping
     public ProductDto createProduct(@RequestBody ProductDto productDto) {
         return productService.createProduct(productDto);
@@ -28,7 +29,7 @@ public class ProductController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping(value = "/{id}")
-    public ProductDto getById(@PathVariable Integer id) {
+    public ProductCreateDto getById(@PathVariable Integer id) {
         return productService.getProductInfo(id);
     }
 
@@ -47,5 +48,4 @@ public class ProductController {
     public List<ProductDto> getProductOrder(@PathVariable Integer id){
         return  productService.getProductOrders(id);
     }
-
 }

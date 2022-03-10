@@ -5,7 +5,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Transactional
 public interface ProductDao extends GenericDao<Product, Integer> {
 
     Product update(Product product);

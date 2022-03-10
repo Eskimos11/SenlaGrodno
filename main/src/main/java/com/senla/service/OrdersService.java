@@ -10,6 +10,7 @@ import com.senla.entity.Product;
 import com.senla.exception.DiscountCardFoundException;
 import com.senla.exception.NoAccessRightsException;
 import com.senla.exception.OrderNotFoundException;
+import com.senla.exception.ProductNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.modelmapper.ModelMapper;
@@ -29,25 +30,25 @@ public class OrdersService {
     private final DiscountCardDao discountCardDao;
     private final DiscountCardService discountCardService;
     private final ModelMapper mapper;
-
+    @Transactional
     public OrdersDto createOrder(OrdersDto ordersDto, Integer id) {
         final Orders orders = mapper.map(ordersDto, Orders.class);
         orders.setUserId(id);
         final Orders savedOrders = ordersDao.save(orders);
         return mapper.map(savedOrders, OrdersDto.class);
     }
-
+    @Transactional
     public void deleteOrder(Integer id) {
         ordersDao.deleteById(id);
     }
-
+    @Transactional
     public OrdersDto getInfoOrder(Integer id) {
         final Orders orders = ofNullable(ordersDao.getById(id))
                 .orElseThrow(() -> new OrderNotFoundException(id));
 
         return mapper.map(orders, OrdersDto.class);
     }
-
+    @Transactional
     public OrdersDto updateOrder(OrdersDto ordersDto, Integer id) {
         final Orders orders = mapper.map(ordersDto, Orders.class);
         if (!orders.getUserId().equals(id))
@@ -61,7 +62,8 @@ public class OrdersService {
         Orders orders = ordersDao.getById(orderId);
         if (!orders.getUserId().equals(id))
             throw new NoAccessRightsException("");
-        Product product = productDao.getById(productId);
+        Product product = ofNullable(productDao.getById(productId))
+                .orElseThrow(() -> new ProductNotFoundException(id));
         List<Product> productListOrders = productDao.getProduct(orderId);
         product.setPurchaseQuantity(amount);
         productListOrders.add(product);

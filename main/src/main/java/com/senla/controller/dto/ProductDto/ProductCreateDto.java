@@ -15,5 +15,4 @@ public class ProductCreateDto {
     private String title;
     private Integer price;
     private Integer amount;
-
 }

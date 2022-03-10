@@ -35,6 +35,11 @@ public class DiscountCardController {
     public void deleteDiscountCardByNumber(@PathVariable String number){
         discountCardService.deleteDiscountCard(number);
     }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("/update/")
+    public DiscountCardDto updateDiscountCard(@RequestBody DiscountCardDto discountCardDto){
+        return discountCardService.updateDiscountCard(discountCardDto);
+    }
 
 }
 

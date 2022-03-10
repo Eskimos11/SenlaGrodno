@@ -1,7 +1,6 @@
 package com.senla.dao;
 
 import com.senla.api.dao.GenericDao;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

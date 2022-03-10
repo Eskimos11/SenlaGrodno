@@ -5,7 +5,7 @@ import lombok.Getter;
 public class ProviderNotFoundException extends RuntimeException {
 
     @Getter
-    private Integer id;
+    private final Integer id;
 
     public ProviderNotFoundException(Integer id) {
         this.id = id;

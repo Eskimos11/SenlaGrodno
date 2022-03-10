@@ -14,14 +14,6 @@ import java.util.List;
 @Configuration
 @EnableWebMvc
 public class WebConfiguration implements WebMvcConfigurer {
-    public void configureDefaultServletHandling(
-            DefaultServletHandlerConfigurer configurer) {
-        configurer.enable();
-    }
 
-        @Override
-        public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-            argumentResolvers.add(new AuthenticationPrincipalArgumentResolver());
-        }
     }
 

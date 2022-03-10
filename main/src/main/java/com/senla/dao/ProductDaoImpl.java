@@ -32,7 +32,6 @@ public class ProductDaoImpl extends AbstractDao<Product, Integer> implements Pro
         final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         final CriteriaQuery<Product> query = criteriaBuilder.createQuery(Product.class);
         final Root<Product> from = query.from(Product.class);
-
         return entityManager.createQuery(
                 query.select(from)
                         .where(criteriaBuilder.equal(from.get(Product_.title), title))

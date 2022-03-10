@@ -1,6 +1,6 @@
 package com.senla.exception;
 
-import liquibase.pro.packaged.S;
+
 import lombok.Getter;
 
 public class UserNotFoundException extends RuntimeException {

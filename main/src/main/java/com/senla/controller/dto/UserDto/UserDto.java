@@ -1,5 +1,6 @@
 package com.senla.controller.dto.UserDto;
 
+import com.senla.controller.dto.DetailsDto;
 import com.senla.entity.Details;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,5 +16,5 @@ public class UserDto {
     private Integer id;
     private String username;
     private String password;
-    private Details details;
+    private DetailsDto details;
 }

@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.NoResultException;
 
@@ -28,7 +29,7 @@ public class DiscountCardService {
     private final OrdersDao ordersDao;
     private final DetailsDao detailsDao;
     private final ModelMapper mapper;
-
+    @Transactional
     public DiscountCardDto createDiscountCard(String number, DetailsDto detailsDto) {
         final Details details = mapper.map(detailsDto, Details.class);
         DiscountCard discountCard = new DiscountCard();
@@ -40,25 +41,25 @@ public class DiscountCardService {
         final DiscountCard savedDiscountCard = discountCardDao.update(discountCard);
         return mapper.map(savedDiscountCard, DiscountCardDto.class);
     }
-
+    @Transactional
     public DiscountCardDto getDiscountCard(Integer id) {
         final DiscountCard discountCard = ofNullable(discountCardDao.getById(id))
                 .orElseThrow(() -> new CardNotFoundException(id));
         return mapper.map(discountCard, DiscountCardDto.class);
     }
-
+    @Transactional
     public DiscountCardDto getDiscountCardByNumber(String number) {
         DiscountCard discountCard = ofNullable(discountCardDao.getByNumber(number))
                 .orElseThrow(() -> new NoResultException());
         return mapper.map(discountCard, DiscountCardDto.class);
     }
-
+    @Transactional
     public DiscountCardDto updateDiscountCard(DiscountCardDto discountCardDto) {
         final DiscountCard discountCard = mapper.map(discountCardDto, DiscountCard.class);
         final DiscountCard updatedCard = discountCardDao.update(discountCard);
         return mapper.map(updatedCard, DiscountCardDto.class);
     }
-
+    @Transactional
     public void deleteDiscountCard(String number) {
         DiscountCard discountCard = discountCardDao.getByNumber(number);
         discountCardDao.deleteById(discountCard.getId());

@@ -61,10 +61,10 @@ public class GlobalControllerAdvice {
     public ErrorMessageDto InternalAuthenticationServiceException(InternalAuthenticationServiceException e) {
         return new ErrorMessageDto("ШОТа не то");
     }
-
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(ProductNotFoundException.class)
-    public ErrorMessageDto ProductNotFoundException(ProductNotFoundException ProductNotFoundException) {
-        return new ErrorMessageDto("Продукт не найден");
+    public ErrorMessageDto ProductNotFoundException(ProductNotFoundException productNotFoundException) {
+        return new ErrorMessageDto("Продукт c id= " + productNotFoundException.getId() + " не найден");
     }
 
 
