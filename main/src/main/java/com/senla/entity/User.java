@@ -20,7 +20,7 @@ public class User  {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user-id-sequence")
     @SequenceGenerator(name = "user-id-sequence", sequenceName = "users_seq", allocationSize = 1)
-    private Integer id;
+    private Long id;
 
     @Column(name = "username", unique = true)
     private String username;
@@ -37,11 +37,11 @@ public class User  {
     @JoinColumn(name = "details_id")
     private Details details;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

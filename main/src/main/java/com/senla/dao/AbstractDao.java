@@ -2,10 +2,12 @@ package com.senla.dao;
 
 import com.senla.api.dao.GenericDao;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 @Repository
+
 public abstract class AbstractDao<Entity, Id> implements GenericDao<Entity, Id> {
 
     @PersistenceContext

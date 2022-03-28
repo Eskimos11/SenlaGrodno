@@ -23,15 +23,15 @@ public class UserController {
         return userService.createUser(userDto);
     }
 
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Integer id) {
+    public void deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+//    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping(value = "/{id}")
-    public UserDto getById(@PathVariable Integer id) {
+    public UserDto getById(@PathVariable Long id) {
         return userService.getUserInfo(id);
     }
 
@@ -43,9 +43,9 @@ public class UserController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @PutMapping("/{userId}")
-    public UserDto addDetails(@PathVariable Integer userId,
+    public UserDto addDetails(@PathVariable Long userId,
                               @RequestBody DetailsDto detailsDto,
-                              @AuthenticationPrincipal Integer id) {
+                              @AuthenticationPrincipal Long id) {
         return userService.addDetails(userId, detailsDto,id);
     }
 }

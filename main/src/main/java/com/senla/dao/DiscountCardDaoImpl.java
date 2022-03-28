@@ -6,9 +6,9 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.criteria.*;
 
 @Repository
-public class DiscountCardImpl extends AbstractDao<DiscountCard, Integer> implements DiscountCardDao {
+public class DiscountCardDaoImpl extends AbstractDao<DiscountCard, Long> implements DiscountCardDao {
 
-    public DiscountCardImpl() {
+    public DiscountCardDaoImpl() {
         super(DiscountCard.class);
     }
 
@@ -25,10 +25,8 @@ public class DiscountCardImpl extends AbstractDao<DiscountCard, Integer> impleme
         return entityManager.createQuery(query).getSingleResult();
     }
 
-
-
     @Override
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         final CriteriaDelete<DiscountCard> query = criteriaBuilder.createCriteriaDelete(DiscountCard.class);
         final Root<DiscountCard> rows = query.from(DiscountCard.class);

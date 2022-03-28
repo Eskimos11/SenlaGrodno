@@ -1,5 +1,5 @@
 CREATE TABLE details (
-	id int,
+	id bigint,
 	first_name varchar(20),
 	last_name varchar(20),
 	city varchar(15),

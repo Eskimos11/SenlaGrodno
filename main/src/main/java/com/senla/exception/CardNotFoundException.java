@@ -4,9 +4,9 @@ import lombok.Getter;
 
 public class CardNotFoundException extends RuntimeException{
     @Getter
-    private Integer id;
+    private Long id;
 
-    public CardNotFoundException(Integer id) {
+    public CardNotFoundException(Long id) {
         this.id = id;
     }
 

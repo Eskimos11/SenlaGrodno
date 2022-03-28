@@ -5,9 +5,9 @@ import lombok.Getter;
 public class OrderNotFoundException extends RuntimeException{
 
     @Getter
-    private Integer id;
+    private Long id;
 
-    public OrderNotFoundException(Integer id) {
+    public OrderNotFoundException(Long id) {
         this.id = id;
     }
 }

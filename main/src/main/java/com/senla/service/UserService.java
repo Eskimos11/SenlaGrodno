@@ -19,11 +19,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.NoResultException;
+import java.util.Objects;
+
 import static java.util.Optional.ofNullable;
 
 @Service
 @RequiredArgsConstructor
-@Log4j
+//@Log4j
 public class UserService {
 
     private final UserDao userDao;
@@ -32,7 +34,7 @@ public class UserService {
     private final ModelMapper mapper;
     private final PasswordEncoder passwordEncoder;
 
-    @Transactional
+
     public UserCreateDto createUser(UserCreateDto userDto) {
         final User user = mapper.map(userDto, User.class);
         User savedUser = null;
@@ -41,23 +43,39 @@ public class UserService {
             throw new UserFoundException(user.getUsername());
         } catch (NoResultException e) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            user.setRole(roleDao.getById(2));
+            user.setRole(roleDao.getById(2L));
             savedUser = userDao.update(user);
         }
         return mapper.map(savedUser, UserCreateDto.class);
     }
+
+//    public UserCreateDto createUser(UserCreateDto userDto) {
+//        final User user = mapper.map(userDto, User.class);
+//        User savedUser = null;
+//
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));
+//        user.setRole(roleDao.getById(2L));
+//        savedUser = userDao.update(user);
+//        ofNullable(userDao.getByName(user.getUsername()))
+//                .orElseThrow(() -> new UserFoundException(user.getUsername()));
+//
+//        return mapper.map(savedUser, UserCreateDto.class);
+//    }
+
     @Transactional
-    public void deleteUser(Integer id) {
+    public void deleteUser(Long id) {
         userDao.deleteById(id);
     }
+
     @Transactional
-    public UserDto getUserInfo(Integer id) {
+    public UserDto getUserInfo(Long id) {
 
         final User user = ofNullable(userDao.getById(id))
                 .orElseThrow(() -> new UserNotFoundException(id));
 
         return mapper.map(user, UserDto.class);
     }
+
     @Transactional
     public UserDto updateUser(UserDto userDto) {
         final User user = mapper.map(userDto, User.class);
@@ -67,13 +85,14 @@ public class UserService {
     }
 
     @Transactional
-    public UserDto addDetails(Integer userId, DetailsDto detailsDto,Integer id) {
+    public UserDto addDetails(Long userId, DetailsDto detailsDto, Long id) {
         final Details details = mapper.map(detailsDto, Details.class);
-        if(!userId.equals(id))
+        if (!userId.equals(id))
             throw new NoAccessRightsException("");
         detailsDao.save(details);
         User user = ofNullable(userDao.getById(id))
-                .orElseThrow(() -> new UserNotFoundException(userId));;
+                .orElseThrow(() -> new UserNotFoundException(userId));
+        ;
         user.setDetails(details);
         final User updateUser = userDao.update(user);
         return mapper.map(updateUser, UserDto.class);

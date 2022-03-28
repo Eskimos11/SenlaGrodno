@@ -1,5 +1,5 @@
 CREATE TABLE products(
-  id int NOT NULL,
+  id bigint NOT NULL,
   title varchar(45) NOT NULL,
   price int NOT NULL,
   amount int NOT NULL,

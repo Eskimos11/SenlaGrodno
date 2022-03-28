@@ -16,7 +16,7 @@ public class DetailsController {
     private final DetailsService detailsService;
 
     @GetMapping(value = "/{id}")
-    public DetailsDto getById(@PathVariable Integer id) {
+    public DetailsDto getById(@PathVariable Long id) {
         return detailsService.getInfoDetails(id);
     }
 }

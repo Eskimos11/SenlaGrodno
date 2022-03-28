@@ -20,10 +20,9 @@ public class RoleDao {
         entityManager.persist(role);
     }
 
-    public Role getById(Integer roleId) {
+    public Role getById(Long roleId) {
         return entityManager.find(Role.class, roleId);
     }
-
 
     public Role getByName(String name) {
         final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();

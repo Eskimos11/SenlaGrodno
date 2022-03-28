@@ -4,10 +4,12 @@ import com.senla.api.dao.UserDao;
 import com.senla.entity.User;
 import com.senla.entity.User_;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.criteria.*;
 
 @Repository
-public class UserDaoImpl extends AbstractDao<User, Integer> implements UserDao {
+public class UserDaoImpl extends AbstractDao<User, Long> implements UserDao {
 
     public UserDaoImpl() {
         super(User.class);
@@ -37,7 +39,7 @@ public class UserDaoImpl extends AbstractDao<User, Integer> implements UserDao {
     }
 
     @Override
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         final CriteriaDelete<User> query = criteriaBuilder.createCriteriaDelete(User.class);
         final Root<User> rows = query.from(User.class);

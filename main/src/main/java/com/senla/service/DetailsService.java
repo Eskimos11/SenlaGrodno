@@ -11,13 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@Log4j
+//@Log4j
 public class DetailsService {
 
     private final DetailsDao detailsDao;
     private final ModelMapper mapper;
     @Transactional
-    public DetailsDto getInfoDetails(Integer id) {
+    public DetailsDto getInfoDetails(Long id) {
         final Details details = detailsDao.getById(id);
         return mapper.map(details, DetailsDto.class);
     }

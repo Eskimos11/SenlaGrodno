@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProductCreateDto {
 
-    private Integer id;
+    private Long id;
     private String title;
     private Integer price;
     private Integer amount;

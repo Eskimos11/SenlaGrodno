@@ -1,9 +1,9 @@
 CREATE TABLE users (
-    id int NOT NULL,
+    id bigint NOT NULL,
     username varchar(20),
     password varchar(100),
-    role_id int,
-    details_id int,
+    role_id bigint,
+    details_id bigint,
     FOREIGN KEY (role_id) REFERENCES role(id),
     FOREIGN KEY (details_id) REFERENCES details(id),
     PRIMARY KEY (id));

@@ -6,12 +6,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@Log4j
+//@Log4j
 @RequestMapping("/orders")
 public class OrdersController {
 
@@ -20,19 +19,19 @@ public class OrdersController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @PostMapping
     public OrdersDto createOrders(@RequestBody OrdersDto ordersDto
-            , @AuthenticationPrincipal Integer id) {
+            , @AuthenticationPrincipal Long id) {
         return ordersService.createOrder(ordersDto,id);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @DeleteMapping("/{id}")
-    public void deleteOrder(@PathVariable Integer id) {
+    public void deleteOrder(@PathVariable Long id) {
         ordersService.deleteOrder(id);
     }
 
     @GetMapping(value = "/{id}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-    public OrdersDto getById(@PathVariable Integer id) {
+    public OrdersDto getById(@PathVariable Long id) {
         return ordersService.getInfoOrder(id);
     }
 
@@ -46,18 +45,18 @@ public class OrdersController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @PutMapping("/{ordersDto}/{productDto}/{count}")
     public OrdersDto addProduct(
-            @PathVariable Integer ordersDto
-            , @PathVariable Integer productDto
+            @PathVariable Long ordersDto
+            , @PathVariable Long productDto
             , @PathVariable Integer count,
-            @AuthenticationPrincipal Integer userId) {
+            @AuthenticationPrincipal Long userId) {
         return ordersService.addProducts(ordersDto, productDto, count,userId);
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @PutMapping("/{ordersId}/{numberCard}")
-    public OrdersDto addDiscountCard(@PathVariable Integer ordersId,
+    public OrdersDto addDiscountCard(@PathVariable Long ordersId,
                                      @PathVariable String numberCard,
-                                     @AuthenticationPrincipal Integer userId) {
+                                     @AuthenticationPrincipal Long userId) {
         ordersService.addDiscountCard(ordersId, numberCard,userId);
         return ordersService.getInfoOrder(ordersId);
     }

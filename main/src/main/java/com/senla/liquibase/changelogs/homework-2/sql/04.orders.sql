@@ -1,8 +1,8 @@
 CREATE TABLE orders (
-  id int NOT NULL,
+  id bigint NOT NULL,
   sum int,
   discount_card_id int,
-  user_id int,
+  user_id bigint,
   FOREIGN KEY (discount_card_id) REFERENCES discount_cards(id),
   PRIMARY KEY (id)
 ) ;

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class ProductDaoImpl extends AbstractDao<Product, Integer> implements ProductDao {
+public class ProductDaoImpl extends AbstractDao<Product, Long> implements ProductDao {
 
     public ProductDaoImpl() {
         super(Product.class);
@@ -19,7 +19,7 @@ public class ProductDaoImpl extends AbstractDao<Product, Integer> implements Pro
     }
 
     @Override
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         final CriteriaDelete<Product> query = criteriaBuilder.createCriteriaDelete(Product.class);
         final Root<Product> rows = query.from(Product.class);
@@ -40,25 +40,10 @@ public class ProductDaoImpl extends AbstractDao<Product, Integer> implements Pro
 
     @Override
     public List<Product> getProductLimit(Integer amount) {
-        return  entityManager.createQuery("Select t from Product t where t.amount <:amount")
+        return  entityManager.createQuery("Select t from Product t where t.amount <=:amount")
             .setParameter("amount", amount).getResultList();
     }
 
-    @Override
-    public List<Product> getProduct(Integer id) {
 
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery q = cb.createQuery(Product.class);
-        Root o = q.from(Orders.class);
-        o.fetch("productList", JoinType.INNER);
-        q.select(o);
-        q.where(cb.equal(o.get("id"), id));
-
-        List<Orders> ordersList = entityManager.createQuery(q).getResultList();
-        List<Product> productList = new ArrayList<>();
-        if (ordersList.isEmpty()) {
-            return productList;
-        } else return ordersList.get(0).getProductList();
-    }
 
 }

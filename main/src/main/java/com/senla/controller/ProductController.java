@@ -16,20 +16,20 @@ public class ProductController {
 
     private final ProductService productService;
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+//    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @PostMapping
     public ProductDto createProduct(@RequestBody ProductDto productDto) {
         return productService.createProduct(productDto);
     }
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
-    public void deleteProduct(@PathVariable Integer id) {
+    public void deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping(value = "/{id}")
-    public ProductCreateDto getById(@PathVariable Integer id) {
+    public ProductCreateDto getById(@PathVariable Long id) {
         return productService.getProductInfo(id);
     }
 
@@ -43,9 +43,9 @@ public class ProductController {
     public List<ProductDto> getProductLimit(@PathVariable Integer amount){
         return  productService.getProductLimit(amount);
     }
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-    @GetMapping("/order/{id}")
-    public List<ProductDto> getProductOrder(@PathVariable Integer id){
-        return  productService.getProductOrders(id);
-    }
+//    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+//    @GetMapping("/order/{id}")
+//    public List<ProductDto> getProductOrder(@PathVariable Long id){
+//        return  productService.getProductOrders(id);
+//    }
 }

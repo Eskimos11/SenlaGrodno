@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class OrdersDto {
 
-    private Integer id;
+    private Long id;
     private Integer sum = 0;
 
 }

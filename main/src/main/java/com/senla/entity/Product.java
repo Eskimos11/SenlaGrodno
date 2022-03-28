@@ -20,7 +20,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "product-id-sequence")
     @SequenceGenerator(name = "product-id-sequence", sequenceName = "products_seq", allocationSize = 1)
-    private Integer id;
+    private Long id;
     @Column(name = "title")
     private String title;
     @Column(name = "price")
@@ -29,9 +29,6 @@ public class Product {
     private Integer amount;
     @Column(name = "purchase_quantity")
     private Integer purchaseQuantity;
-
-    @ManyToMany(mappedBy = "productList")
-    private Set<Orders> orders = new HashSet<>();
 
     @Override
     public String toString() {

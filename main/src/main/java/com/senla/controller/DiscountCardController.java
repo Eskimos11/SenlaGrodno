@@ -16,7 +16,7 @@ public class DiscountCardController {
     private final DiscountCardService discountCardService;
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping(value = "id/{id}")
-    public DiscountCardDto getById(@PathVariable Integer id) {
+    public DiscountCardDto getById(@PathVariable Long id) {
         return discountCardService.getDiscountCard(id);
     }
     @PreAuthorize("hasRole('ROLE_USER')")

@@ -1,6 +1,7 @@
 package com.senla.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,13 +11,14 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 @Table(name = "discount_cards")
 public class DiscountCard {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "discountCard-id-sequence")
     @SequenceGenerator(name = "discountCard-id-sequence", sequenceName = "discountCard_seq", allocationSize = 1)
-    private Integer id;
+    private Long id;
     @Column(name = "number")
     private String number;
     @Column(name = "balance")

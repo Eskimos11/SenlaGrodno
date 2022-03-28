@@ -1,9 +1,9 @@
 CREATE TABLE discount_cards (
-  id int NOT NULL,
+  id bigint NOT NULL,
   number varchar(45) NOT NULL,
   status varchar(45) NOT NULL,
   balance int,
-  details_id int,
+  details_id bigint,
   PRIMARY KEY (id),
   FOREIGN KEY (details_id) REFERENCES details(id)
 ) ;

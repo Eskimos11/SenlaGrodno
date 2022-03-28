@@ -16,7 +16,7 @@ public class Orders {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "order-id-sequence")
     @SequenceGenerator(name = "order-id-sequence", sequenceName = "orders_seq", allocationSize = 1)
-    private Integer id;
+    private Long id;
     @ManyToMany(fetch= FetchType.LAZY, cascade= {CascadeType.PERSIST,CascadeType.MERGE
                                                  ,CascadeType.REFRESH,CascadeType.DETACH})
     @JoinTable(name = "orders_products",
@@ -29,7 +29,7 @@ public class Orders {
 //    @JoinColumn(name = "role_id")
 //    private ProductAmount productAmount;
     @Column(name = "user_id")
-    private Integer userId;
+    private Long userId;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "discount_card_id")
     private DiscountCard discountCard;

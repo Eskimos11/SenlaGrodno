@@ -12,11 +12,9 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.persistence.NoResultException;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -34,15 +32,15 @@ class UserServiceTest {
     @Test
     public void saveUserShouldFinishOk() {
 
-//        final String userName = "user";
-//        when(userDao.save(any())).thenReturn(User.builder().username(userName).id(123).build());
+//        final String userName = "user7";
+//        when(userDao.save(any())).thenReturn(User.builder().username(userName).id(123L).build());
 //
-//        final UserDto userDto = userService.saveUser(
+//        final UserCreateDto userDto = userService.createUser(
 //                UserCreateDto.builder()
 //                        .username(userName)
 //                        .build());
 //
-//        assertEquals(123, userDto.getId());
+//        assertEquals(123L, userDto.getId());
 //        assertEquals(userName, userDto.getUsername());
     }
 

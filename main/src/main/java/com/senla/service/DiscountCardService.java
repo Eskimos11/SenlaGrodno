@@ -22,13 +22,14 @@ import static java.util.Optional.ofNullable;
 
 @Service
 @RequiredArgsConstructor
-@Log4j
+//@Log4j
 public class DiscountCardService {
 
     private final DiscountCardDao discountCardDao;
     private final OrdersDao ordersDao;
     private final DetailsDao detailsDao;
     private final ModelMapper mapper;
+
     @Transactional
     public DiscountCardDto createDiscountCard(String number, DetailsDto detailsDto) {
         final Details details = mapper.map(detailsDto, Details.class);
@@ -42,7 +43,7 @@ public class DiscountCardService {
         return mapper.map(savedDiscountCard, DiscountCardDto.class);
     }
     @Transactional
-    public DiscountCardDto getDiscountCard(Integer id) {
+    public DiscountCardDto getDiscountCard(Long id) {
         final DiscountCard discountCard = ofNullable(discountCardDao.getById(id))
                 .orElseThrow(() -> new CardNotFoundException(id));
         return mapper.map(discountCard, DiscountCardDto.class);

@@ -4,6 +4,7 @@ import com.senla.api.dao.DiscountCardDao;
 import com.senla.api.dao.OrdersDao;
 import com.senla.api.dao.ProductDao;
 import com.senla.controller.dto.OrdersDto.OrdersDto;
+import com.senla.controller.dto.ProductDto.ProductDto;
 import com.senla.entity.DiscountCard;
 import com.senla.entity.Orders;
 import com.senla.entity.Product;
@@ -18,12 +19,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.Optional.ofNullable;
 
 @Service
 @RequiredArgsConstructor
-@Log4j
+//@Log4j
 public class OrdersService {
     private final OrdersDao ordersDao;
     private final ProductDao productDao;
@@ -31,18 +33,18 @@ public class OrdersService {
     private final DiscountCardService discountCardService;
     private final ModelMapper mapper;
     @Transactional
-    public OrdersDto createOrder(OrdersDto ordersDto, Integer id) {
+    public OrdersDto createOrder(OrdersDto ordersDto, Long userId) {
         final Orders orders = mapper.map(ordersDto, Orders.class);
-        orders.setUserId(id);
+        orders.setUserId(userId);
         final Orders savedOrders = ordersDao.save(orders);
         return mapper.map(savedOrders, OrdersDto.class);
     }
     @Transactional
-    public void deleteOrder(Integer id) {
+    public void deleteOrder(Long id) {
         ordersDao.deleteById(id);
     }
     @Transactional
-    public OrdersDto getInfoOrder(Integer id) {
+    public OrdersDto getInfoOrder(Long id) {
         final Orders orders = ofNullable(ordersDao.getById(id))
                 .orElseThrow(() -> new OrderNotFoundException(id));
 
@@ -58,13 +60,13 @@ public class OrdersService {
     }
 
     @Transactional
-    public OrdersDto addProducts(Integer orderId, Integer productId, Integer amount, Integer id) {
+    public OrdersDto addProducts(Long orderId, Long productId, Integer amount, Long id) {
         Orders orders = ordersDao.getById(orderId);
         if (!orders.getUserId().equals(id))
             throw new NoAccessRightsException("");
         Product product = ofNullable(productDao.getById(productId))
                 .orElseThrow(() -> new ProductNotFoundException(id));
-        List<Product> productListOrders = productDao.getProduct(orderId);
+        List<Product> productListOrders = ordersDao.getProductFromOrder(orderId);
         product.setPurchaseQuantity(amount);
         productListOrders.add(product);
         orders.setProductList(productListOrders);
@@ -89,7 +91,7 @@ public class OrdersService {
     }
 
     @Transactional
-    public OrdersDto addDiscountCard(Integer orderId, String numberCard, Integer id) {
+    public OrdersDto addDiscountCard(Long orderId, String numberCard, Long id) {
         Orders orders = ordersDao.getById(orderId);
         if (!orders.getUserId().equals(id))
             throw new NoAccessRightsException("");
@@ -104,6 +106,14 @@ public class OrdersService {
 
         Orders updateOrders = ordersDao.update(orders);
         return mapper.map(updateOrders, OrdersDto.class);
+    }
+    @Transactional
+    public List<ProductDto> getProductOrders(Long id) {
+        List<Product> productList = ordersDao.getProductFromOrder(id);
+        return productList
+                .stream()
+                .map(product -> mapper.map(product, ProductDto.class))
+                .collect(Collectors.toList());
     }
 }
 

@@ -30,11 +30,11 @@ public class GlobalControllerAdvice {
         );
     }
 
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(NoResultException.class)
-    public ErrorMessageDto errorMessageDto(NoResultException noResultException) {
-        return new ErrorMessageDto("Карта не найдена");
-    }
+//    @ResponseStatus(HttpStatus.NOT_FOUND)
+//    @ExceptionHandler(NoResultException.class)
+//    public ErrorMessageDto errorMessageDto(NoResultException noResultException) {
+//        return new ErrorMessageDto("Карта не найдена");
+//    }
 
     @ExceptionHandler(UserFoundException.class)
     public ErrorMessageDto catchRuntimeException(UserFoundException userFoundException) {

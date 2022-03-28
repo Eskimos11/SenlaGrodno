@@ -1,5 +1,5 @@
 CREATE TABLE role (
-    id int,
+    id bigint,
     name varchar(15),
     PRIMARY KEY (id));
 

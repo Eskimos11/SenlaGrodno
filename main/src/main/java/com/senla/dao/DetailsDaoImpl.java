@@ -8,7 +8,7 @@ import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.Root;
 
 @Repository
-public class DetailsDaoImpl extends AbstractDao<Details, Integer> implements DetailsDao {
+public class DetailsDaoImpl extends AbstractDao<Details, Long> implements DetailsDao {
 
     public DetailsDaoImpl() {
         super(Details.class);
@@ -20,7 +20,7 @@ public class DetailsDaoImpl extends AbstractDao<Details, Integer> implements Det
     }
 
     @Override
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         final CriteriaDelete<Details> query = criteriaBuilder.createCriteriaDelete(Details.class);
         final Root<Details> rows = query.from(Details.class);
