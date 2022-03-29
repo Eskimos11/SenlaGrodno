@@ -4,17 +4,13 @@ import com.senla.api.dao.ProductDao;
 import com.senla.controller.dto.ProductDto.ProductCreateDto;
 import com.senla.controller.dto.ProductDto.ProductDto;
 import com.senla.entity.Product;
-import liquibase.pro.packaged.P;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.modelmapper.ModelMapper;
 import org.springframework.test.annotation.Rollback;
 
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -27,8 +23,6 @@ public class ProductServiceTest {
 
     @InjectMocks
     private ProductService productService;
-    @Spy
-    private ModelMapper mapper;
     @Mock
     private ProductDao productDao;
 
