@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 @Repository
-
 public abstract class AbstractDao<Entity, Id> implements GenericDao<Entity, Id> {
 
     @PersistenceContext

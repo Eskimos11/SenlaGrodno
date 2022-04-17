@@ -21,9 +21,8 @@ public class DiscountCardController {
     }
     @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping("/{number}")
-    public DiscountCardDto createDiscountCard(@PathVariable String number,
-                                              @RequestBody DetailsDto detailsDto) {
-        return discountCardService.createDiscountCard(number,detailsDto);
+    public DiscountCardDto createDiscountCard(@PathVariable String number){
+        return discountCardService.createDiscountCard(number);
     }
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/number/{number}")
@@ -39,6 +38,12 @@ public class DiscountCardController {
     @PutMapping("/update/")
     public DiscountCardDto updateDiscountCard(@RequestBody DiscountCardDto discountCardDto){
         return discountCardService.updateDiscountCard(discountCardDto);
+    }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("/add_details/{number}")
+    public void addDetails(@PathVariable String number,
+                           @RequestBody DetailsDto detailsDto){
+         discountCardService.addDetails(number,detailsDto);
     }
 
 }

@@ -1,0 +1,117 @@
+package com.senla.service;
+
+import com.senla.api.dao.DetailsDao;
+import com.senla.api.dao.DiscountCardDao;
+import com.senla.controller.dto.DetailsDto;
+import com.senla.controller.dto.DiscountCardDto.DiscountCardDto;
+import com.senla.entity.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Spy;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.modelmapper.ModelMapper;
+import org.springframework.test.annotation.Rollback;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
+@Rollback(value = false)
+class DiscountCardServiceTest {
+    @InjectMocks
+    private DiscountCardService discountCardService;
+    @Spy
+    private ModelMapper mapper;
+    @Mock
+    private DiscountCardDao discountCardDao;
+    @Mock
+    private DetailsDao detailsDao;
+
+    public DiscountCardDto discountCard;
+
+    @BeforeEach
+    public void init(){
+        when(discountCardDao.save(any()))
+                .thenReturn(DiscountCard.builder().id(1L).balance(123).number("1111").status(Status.BRONZE).build());
+           discountCard = discountCardService.createDiscountCard("1111");
+    }
+    @Test
+    void createDiscountCard() {
+        when(discountCardDao.save(any()))
+                .thenReturn(DiscountCard.builder().balance(123).number("1111").status(Status.BRONZE).build());
+        discountCard = discountCardService.createDiscountCard("1111");
+        assertEquals(123,discountCard.getBalance());
+        assertEquals("1111",discountCard.getNumber());
+        assertEquals(Status.BRONZE,discountCard.getStatus());
+    }
+
+    @Test
+    void getDiscountCardById() {
+        when(discountCardDao.getById(any()))
+                .thenReturn(DiscountCard.builder().id(1L).balance(123).number("1111").status(Status.BRONZE).build());
+        DiscountCardDto potentialDiscountCard = discountCardService.getDiscountCard(discountCard.getId());
+        assertEquals(discountCard,potentialDiscountCard);
+
+    }
+
+    @Test
+    void getDiscountCardByNumber() {
+        when(discountCardDao.getByNumber(any()))
+                .thenReturn(DiscountCard.builder().balance(123).number("1111").status(Status.BRONZE).build());
+        assertNotNull(discountCardService.getDiscountCardByNumber("1111"));
+    }
+
+    @Test
+    void updateDiscountCard() {
+        when(discountCardDao.update(any())).thenReturn(DiscountCard.builder().id(1L).balance(321).number("2222").status(Status.SILVER).build());
+        discountCard = discountCardService.updateDiscountCard(DiscountCardDto.builder().id(1L).balance(321).number("2222").status(Status.SILVER).build());
+        assertEquals(1L,discountCard.getId());
+    }
+
+    @Test
+    void deleteDiscountCardByNumber() {
+        when(discountCardDao.getByNumber(any()))
+                .thenReturn(DiscountCard.builder().balance(123).number("1111").status(Status.BRONZE).build());
+        discountCardDao.getById(discountCard.getId());
+        discountCardService.deleteDiscountCard(discountCard.getNumber());
+        assertNull(discountCardDao.getById(discountCard.getId()));
+
+    }
+
+    @Test
+    void changeStatus() {
+        when(discountCardDao.getByNumber(any()))
+                .thenReturn(DiscountCard.builder().balance(55).number("1111").status(Status.BRONZE).build());
+        when(discountCardDao.update(any())).thenReturn(DiscountCard.builder().balance(55).number("1111").status(Status.SILVER).build());
+        assertEquals(Status.SILVER,discountCardService.changeStatus(discountCard.getNumber()).getStatus());
+        when(discountCardDao.update(any())).thenReturn(DiscountCard.builder().balance(20).number("1111").status(Status.BRONZE).build());
+        assertEquals(Status.BRONZE,discountCardService.changeStatus(discountCard.getNumber()).getStatus());
+        when(discountCardDao.update(any())).thenReturn(DiscountCard.builder().balance(100).number("1111").status(Status.GOLD).build());
+        assertEquals(Status.GOLD,discountCardService.changeStatus(discountCard.getNumber()).getStatus());
+
+
+    }
+
+    @Test
+    void addDetails() {
+        when(detailsDao.save(any())).thenReturn(Details.builder().city("GRODNO")
+                .firstName("Pavel").lastName("Kurilo").phoneNumber("+375297279574").build());
+        when(discountCardDao.getByNumber(any()))
+                .thenReturn(DiscountCard.builder().balance(123).number("1111").status(Status.BRONZE).build());
+        when(discountCardDao.update(any())).thenReturn(DiscountCard.builder().balance(123).number("1111").status(Status.SILVER).details(Details.builder().city("GRODNO")
+                .firstName("Pavel").lastName("Kurilo").phoneNumber("+375297279574").build()).build());
+
+        DetailsDto details = DetailsDto.builder().city("GRODNO")
+                .firstName("Pavel").lastName("Kurilo").phoneNumber("+375297279574").build();
+        discountCard = discountCardService.addDetails(discountCard.getNumber(),details);
+        mapper.map(details,Details.class);
+        assertEquals(details.getFirstName(),discountCard.getDetails().getFirstName());
+        assertEquals(details.getLastName(),discountCard.getDetails().getLastName());
+    }
+
+
+}

@@ -19,6 +19,8 @@ public class DiscountCardDaoTest extends BaseRepositoryTest {
     @Autowired
     private DiscountCardDao discountCardDao;
     private DiscountCard discountCard;
+    private DiscountCard discountCardToRemove;
+    private DiscountCard discountCardToUpdate;
 
 
     @BeforeAll
@@ -26,6 +28,12 @@ public class DiscountCardDaoTest extends BaseRepositoryTest {
         discountCard = discountCardDao.save(DiscountCard.builder().
                 balance(12).number("1111").
                 status(Status.BRONZE).build());
+        discountCardToRemove = discountCardDao.save(DiscountCard.builder().
+                balance(12).number("222").
+                status(Status.GOLD).build());
+        discountCardToUpdate = discountCardDao.save(DiscountCard.builder().
+                balance(13).number("123").
+                status(Status.SILVER).build());
     }
 
     @Test
@@ -35,24 +43,24 @@ public class DiscountCardDaoTest extends BaseRepositoryTest {
 
     @Test
     public void getCardByNumber() {
-//        DiscountCard potentialDiscountCard = discountCardDao.getByNumber(discountCard1.getNumber());
-//        assertEquals(discountCard1, potentialDiscountCard);
+        discountCardDao.save(DiscountCard.builder().
+                balance(12).number("4321").
+                status(Status.BRONZE).build());
+        DiscountCard potentialDiscountCard = discountCardDao.getByNumber("4321");
+        assertEquals("4321", potentialDiscountCard.getNumber());
     }
 
     @Test
     public void deleteCartById() {
-        discountCardDao.deleteById(discountCard.getId());
-        DiscountCard discountCard1 = discountCardDao.getById(discountCard.getId());
+        discountCardDao.deleteById(discountCardToRemove.getId());
+        DiscountCard discountCard1 = discountCardDao.getById(discountCardToRemove.getId());
         assertNull(discountCard1);
     }
 
     @Test
     public void updateDiscountCard() {
-        DiscountCard discountCard1 = discountCardDao.save(DiscountCard.builder().
-                balance(123).number("2222").
-                status(Status.GOLD).build());
-        discountCard = discountCardDao.update(discountCard1);
-        assertEquals(discountCard1.getId(),discountCard.getId());
+        discountCard = discountCardDao.update(discountCardToUpdate);
+        assertEquals(discountCardToUpdate.getNumber(), discountCard.getNumber());
     }
 }
 

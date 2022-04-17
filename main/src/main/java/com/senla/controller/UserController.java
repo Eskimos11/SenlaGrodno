@@ -44,9 +44,8 @@ public class UserController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @PutMapping("/{userId}")
     public UserDto addDetails(@PathVariable Long userId,
-                              @RequestBody DetailsDto detailsDto,
-                              @AuthenticationPrincipal Long id) {
-        return userService.addDetails(userId, detailsDto,id);
+                              @RequestBody DetailsDto detailsDto) {
+        return userService.addDetails(userId, detailsDto);
     }
 }
 

@@ -4,6 +4,7 @@ import com.senla.api.dao.ProductDao;
 import com.senla.controller.dto.ProductDto.ProductCreateDto;
 import com.senla.controller.dto.ProductDto.ProductDto;
 import com.senla.entity.Product;
+import com.senla.exception.ProductNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.modelmapper.ModelMapper;
@@ -13,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.Optional.ofNullable;
+
 //@Log4j
 @Service
 @RequiredArgsConstructor
@@ -20,6 +23,7 @@ public class ProductService {
 
     private final ProductDao productDao;
     private final ModelMapper mapper;
+
     @Transactional
     public ProductDto createProduct(ProductDto productDto) {
         final Product product = mapper.map(productDto, Product.class);
@@ -32,9 +36,9 @@ public class ProductService {
     }
     @Transactional
     public ProductCreateDto getProductInfo(Long id) {
-//        final Product product = ofNullable(productDao.getById(id))
-//                .orElseThrow(() -> new ProductNotFoundException(id));
-        Product product = productDao.getById(id);
+        final Product product = ofNullable(productDao.getById(id))
+                .orElseThrow(() -> new ProductNotFoundException(id));
+
         return mapper.map(product, ProductCreateDto.class);
     }
     @Transactional

@@ -8,12 +8,12 @@ import com.senla.controller.dto.ProductDto.ProductDto;
 import com.senla.entity.DiscountCard;
 import com.senla.entity.Orders;
 import com.senla.entity.Product;
+import com.senla.entity.Status;
 import com.senla.exception.DiscountCardFoundException;
 import com.senla.exception.NoAccessRightsException;
 import com.senla.exception.OrderNotFoundException;
 import com.senla.exception.ProductNotFoundException;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -91,16 +91,16 @@ public class OrdersService {
     }
 
     @Transactional
-    public OrdersDto addDiscountCard(Long orderId, String numberCard, Long id) {
+    public OrdersDto addDiscountCard(Long orderId, String numberCard, Long userId) {
         Orders orders = ordersDao.getById(orderId);
-        if (!orders.getUserId().equals(id))
+        if (!orders.getUserId().equals(userId))
             throw new NoAccessRightsException("");
         if (orders.getDiscountCard() == null) {
             orders.setDiscountCard(discountCardDao.getByNumber(numberCard));
-            discountCardService.checkStatus(numberCard);
+            discountCardService.changeStatus(numberCard);
             DiscountCard discountCard = discountCardDao.getByNumber(numberCard);
             discountCard.setBalance(discountCard.getBalance() + orders.getSum());
-            discountCardService.giveDiscount(orders, discountCardDao.getByNumber(numberCard));
+            giveDiscount(orders, discountCardDao.getByNumber(numberCard));
             discountCardDao.update(discountCard);
         } else throw new DiscountCardFoundException("Карта введена");
 
@@ -115,5 +115,15 @@ public class OrdersService {
                 .map(product -> mapper.map(product, ProductDto.class))
                 .collect(Collectors.toList());
     }
+    public DiscountCard giveDiscount(Orders orders, DiscountCard discountCard) {
+        if (discountCard.getStatus().equals(Status.BRONZE)) {
+            orders.setSum(orders.getSum() - 3);
+        } else if (discountCard.getStatus().equals(Status.SILVER)) {
+            orders.setSum(orders.getSum() - 4);
+        } else if (discountCard.getStatus().equals(Status.GOLD)) {
+            orders.setSum(orders.getSum() - 5);
+        }
+        return discountCard;
+}
 }
 

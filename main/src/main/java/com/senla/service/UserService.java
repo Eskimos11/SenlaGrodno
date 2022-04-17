@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.NoResultException;
-import java.util.Objects;
+
 
 import static java.util.Optional.ofNullable;
 
@@ -35,32 +35,30 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
 
-    public UserCreateDto createUser(UserCreateDto userDto) {
-        final User user = mapper.map(userDto, User.class);
-        User savedUser = null;
-        try {
-            userDao.getByName(user.getUsername());
-            throw new UserFoundException(user.getUsername());
-        } catch (NoResultException e) {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            user.setRole(roleDao.getById(2L));
-            savedUser = userDao.update(user);
-        }
-        return mapper.map(savedUser, UserCreateDto.class);
-    }
-
 //    public UserCreateDto createUser(UserCreateDto userDto) {
 //        final User user = mapper.map(userDto, User.class);
 //        User savedUser = null;
-//
-//        user.setPassword(passwordEncoder.encode(user.getPassword()));
-//        user.setRole(roleDao.getById(2L));
-//        savedUser = userDao.update(user);
-//        ofNullable(userDao.getByName(user.getUsername()))
-//                .orElseThrow(() -> new UserFoundException(user.getUsername()));
-//
+//        try {
+//            userDao.getByName(user.getUsername());
+////            throw new UserFoundException(user.getUsername());
+//        } catch (NoResultException e) {
+//            user.setPassword(passwordEncoder.encode(user.getPassword()));
+//            user.setRole(roleDao.getById(2L));
+//            savedUser = userDao.update(user);
+//        }
 //        return mapper.map(savedUser, UserCreateDto.class);
 //    }
+
+    public UserCreateDto createUser(UserCreateDto userDto) {
+        final User user = mapper.map(userDto, User.class);
+        User savedUser = null;
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setRole(roleDao.getById(2L));
+            savedUser = userDao.update(user);
+        return mapper.map(savedUser, UserCreateDto.class);
+    }
+
+
 
     @Transactional
     public void deleteUser(Long id) {
@@ -69,10 +67,8 @@ public class UserService {
 
     @Transactional
     public UserDto getUserInfo(Long id) {
-
         final User user = ofNullable(userDao.getById(id))
                 .orElseThrow(() -> new UserNotFoundException(id));
-
         return mapper.map(user, UserDto.class);
     }
 
@@ -85,12 +81,10 @@ public class UserService {
     }
 
     @Transactional
-    public UserDto addDetails(Long userId, DetailsDto detailsDto, Long id) {
+    public UserDto addDetails(Long userId, DetailsDto detailsDto) {
         final Details details = mapper.map(detailsDto, Details.class);
-        if (!userId.equals(id))
-            throw new NoAccessRightsException("");
         detailsDao.save(details);
-        User user = ofNullable(userDao.getById(id))
+        User user = ofNullable(userDao.getById(userId))
                 .orElseThrow(() -> new UserNotFoundException(userId));
         ;
         user.setDetails(details);

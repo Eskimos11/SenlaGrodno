@@ -2,7 +2,6 @@ package com.senla.service;
 
 import com.senla.api.dao.DetailsDao;
 import com.senla.api.dao.DiscountCardDao;
-import com.senla.api.dao.OrdersDao;
 import com.senla.controller.dto.DetailsDto;
 import com.senla.controller.dto.DiscountCardDto.DiscountCardDto;
 import com.senla.entity.Details;
@@ -11,7 +10,6 @@ import com.senla.entity.Orders;
 import com.senla.entity.Status;
 import com.senla.exception.CardNotFoundException;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,21 +24,28 @@ import static java.util.Optional.ofNullable;
 public class DiscountCardService {
 
     private final DiscountCardDao discountCardDao;
-    private final OrdersDao ordersDao;
     private final DetailsDao detailsDao;
     private final ModelMapper mapper;
 
     @Transactional
-    public DiscountCardDto createDiscountCard(String number, DetailsDto detailsDto) {
-        final Details details = mapper.map(detailsDto, Details.class);
+    public DiscountCardDto createDiscountCard(String number) {
         DiscountCard discountCard = new DiscountCard();
         discountCard.setNumber(number);
-        discountCard.setDetails(details);
         discountCard.setBalance(0);
         discountCard.setStatus(Status.valueOf("BRONZE"));
+        final DiscountCard savedDiscountCard = discountCardDao.save(discountCard);
+        return mapper.map(savedDiscountCard, DiscountCardDto.class);
+    }
+
+    @Transactional
+    public DiscountCardDto addDetails(String number,DetailsDto detailsDto){
+        final Details details = mapper.map(detailsDto,Details.class);
+        DiscountCard discountCard = discountCardDao.getByNumber(number);
+        discountCard.setDetails(details);
         detailsDao.save(details);
         final DiscountCard savedDiscountCard = discountCardDao.update(discountCard);
-        return mapper.map(savedDiscountCard, DiscountCardDto.class);
+        return mapper.map(savedDiscountCard,DiscountCardDto.class);
+
     }
     @Transactional
     public DiscountCardDto getDiscountCard(Long id) {
@@ -51,7 +56,7 @@ public class DiscountCardService {
     @Transactional
     public DiscountCardDto getDiscountCardByNumber(String number) {
         DiscountCard discountCard = ofNullable(discountCardDao.getByNumber(number))
-                .orElseThrow(() -> new NoResultException());
+                .orElseThrow(NoResultException::new);
         return mapper.map(discountCard, DiscountCardDto.class);
     }
     @Transactional
@@ -66,7 +71,7 @@ public class DiscountCardService {
         discountCardDao.deleteById(discountCard.getId());
     }
 
-    public DiscountCard checkStatus(String number) {
+    public DiscountCard changeStatus(String number) {
         DiscountCard discountCard = discountCardDao.getByNumber(number);
         if (discountCard.getBalance() <= 25) {
             discountCard.setStatus(Status.valueOf("BRONZE"));
@@ -78,15 +83,7 @@ public class DiscountCardService {
         return discountCardDao.update(discountCard);
     }
 
-    public DiscountCard giveDiscount(Orders orders, DiscountCard discountCard) {
-        if (discountCard.getStatus().equals(Status.BRONZE)) {
-            orders.setSum(orders.getSum() - 3);
-        } else if (discountCard.getStatus().equals(Status.SILVER)) {
-            orders.setSum(orders.getSum() - 4);
-        } else if (discountCard.getStatus().equals(Status.GOLD)) {
-            orders.setSum(orders.getSum() - 5);
-        }
-        return discountCard;
+
     }
-}
+
 

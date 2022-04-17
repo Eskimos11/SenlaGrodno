@@ -6,10 +6,7 @@ import com.senla.dao.ProductDaoImpl;
 import com.senla.entity.Product;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -40,6 +37,11 @@ public class ProductDaoTest extends BaseRepositoryTest {
     public void jpaShouldSetIdWhenEntitySaved() {
         assertNotNull(product.getId());
     }
+    @Test
+    public void shouldFindEntityByNameCorrect() {
+
+//        assertEquals(product.getId(),productDao.getByTitle("Moloko").getId());
+    }
 
     @Test
     public void repositoryShouldThrowExceptionWhenProductNotFoundByName() {
@@ -48,16 +50,10 @@ public class ProductDaoTest extends BaseRepositoryTest {
         });
     }
 
-    @Test
-    public void shouldFindEntityByNameCorrect() {
 
-//        final Product potentialCola = productDao.getByTitle(product.getTitle());
-//
-//        assertEquals(product.getId(), potentialCola.getId());
-    }
     @Test
     public void getProductById(){
-        final Product potentialCola = productDao.getById(product.getId());
+        Product potentialCola = productDao.getById(product.getId());
         assertEquals(potentialCola.getId(),product.getId());
     }
 
