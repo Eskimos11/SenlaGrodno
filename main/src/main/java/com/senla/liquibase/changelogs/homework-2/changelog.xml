@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd
+      http://www.liquibase.org/xml/ns/pro
+      http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd"
+        logicalFilePath="homework-2">
+
+
+    <changeSet id="homework-2-details" author="Pavel Kurilo">
+        <sqlFile encoding="utf8" path="sql/01.details.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="homework-2-discount_cards" author="Pavel Kurilo">
+        <sqlFile encoding="utf8" path="sql/02.discount_cards.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="homework-2-pructs" author="Pavel Kurilo">
+        <sqlFile encoding="utf8" path="sql/03.products.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="homework-2-orders" author="Pavel Kurilo">
+        <sqlFile encoding="utf8" path="sql/04.orders.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="homework-2-orders_products" author="Pavel Kurilo">
+        <sqlFile encoding="utf8" path="sql/05.orders_products.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="homework-2-role" author="Pavel Kurilo">
+        <sqlFile encoding="utf8" path="sql/06.role.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="homework-2-users" author="Pavel Kurilo">
+        <sqlFile encoding="utf8" path="sql/07.users.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="homework-2-addData" author="Pavel Kurilo">
+        <sqlFile encoding="utf8" path="./sql/08.addData.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+
+
+</databaseChangeLog>
