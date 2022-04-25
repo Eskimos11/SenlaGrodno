@@ -25,14 +25,13 @@ public class Orders {
     private List<Product> productList;
     @Column(name = "sum")
     private Integer sum;
-//    @ManyToOne(fetch = FetchType.LAZY, cascade= {CascadeType.PERSIST})
-//    @JoinColumn(name = "role_id")
-//    private ProductAmount productAmount;
     @Column(name = "user_id")
     private Long userId;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "discount_card_id")
     private DiscountCard discountCard;
+    @Column(name = "status_order")
+    private boolean statusOrder;
 
     @Override
     public String toString() {

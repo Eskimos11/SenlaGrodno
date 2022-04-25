@@ -5,10 +5,7 @@ import com.senla.api.dao.OrdersDao;
 import com.senla.api.dao.ProductDao;
 import com.senla.controller.dto.OrdersDto.OrdersDto;
 import com.senla.controller.dto.ProductDto.ProductDto;
-import com.senla.entity.DiscountCard;
-import com.senla.entity.Orders;
-import com.senla.entity.Product;
-import com.senla.entity.Status;
+import com.senla.entity.*;
 import com.senla.exception.DiscountCardFoundException;
 import com.senla.exception.NoAccessRightsException;
 import com.senla.exception.OrderNotFoundException;
@@ -32,17 +29,21 @@ public class OrdersService {
     private final DiscountCardDao discountCardDao;
     private final DiscountCardService discountCardService;
     private final ModelMapper mapper;
+
     @Transactional
     public OrdersDto createOrder(OrdersDto ordersDto, Long userId) {
         final Orders orders = mapper.map(ordersDto, Orders.class);
+        orders.setStatusOrder(true);
         orders.setUserId(userId);
         final Orders savedOrders = ordersDao.save(orders);
         return mapper.map(savedOrders, OrdersDto.class);
     }
+
     @Transactional
     public void deleteOrder(Long id) {
         ordersDao.deleteById(id);
     }
+
     @Transactional
     public OrdersDto getInfoOrder(Long id) {
         final Orders orders = ofNullable(ordersDao.getById(id))
@@ -50,6 +51,7 @@ public class OrdersService {
 
         return mapper.map(orders, OrdersDto.class);
     }
+
     @Transactional
     public OrdersDto updateOrder(OrdersDto ordersDto, Integer id) {
         final Orders orders = mapper.map(ordersDto, Orders.class);
@@ -60,34 +62,35 @@ public class OrdersService {
     }
 
     @Transactional
-    public OrdersDto addProducts(Long orderId, Long productId, Integer amount, Long id) {
+    public OrdersDto addProducts(Long orderId, Long productId, Integer amount) {
         Orders orders = ordersDao.getById(orderId);
-        if (!orders.getUserId().equals(id))
-            throw new NoAccessRightsException("");
+        if(!orders.isStatusOrder()){
+            throw new OrderNotFoundException(orderId);
+        }
+//        if (!orders.getUserId().equals(id))
+//            throw new NoAccessRightsException("");
         Product product = ofNullable(productDao.getById(productId))
-                .orElseThrow(() -> new ProductNotFoundException(id));
+                .orElseThrow(() -> new ProductNotFoundException(productId));
         List<Product> productListOrders = ordersDao.getProductFromOrder(orderId);
-        product.setPurchaseQuantity(amount);
         productListOrders.add(product);
         orders.setProductList(productListOrders);
-        orders.setSum(getSumOrder(product) + orders.getSum());
-        Product updateProduct = productDao.getByTitle(product.getTitle());
-        int changedQuantity = updateProduct.getAmount() - amount;
-        Orders updatedOrders = ordersDao.update(orders);
-        updateProduct.setAmount(changedQuantity);
-        productDao.update(updateProduct);
-        return mapper.map(updatedOrders, OrdersDto.class);
+        orders.setSum(getSumOrder(product, amount) + orders.getSum());
+        product.setAmount(product.getAmount() - amount);
+//        ProductAmount productAmount =
+        ordersDao.update(orders);
+        productDao.update(product);
+        return mapper.map(orders, OrdersDto.class);
+    }
+    public OrdersDto closeOrder(Long orderId){
+        Orders order = ordersDao.getById(orderId);
+        order.setStatusOrder(false);
+        ordersDao.update(order);
+        return mapper.map(order,OrdersDto.class);
     }
 
 
-    private Integer getSumOrder(Product product) {
-        int totalAmount = 0;
-        int price;
-        int number;
-        number = product.getPurchaseQuantity();
-        price = product.getPrice();
-        totalAmount = (number * price) + totalAmount;
-        return totalAmount;
+    private Integer getSumOrder(Product product, Integer amount) {
+        return product.getPrice() * amount;
     }
 
     @Transactional
@@ -107,6 +110,7 @@ public class OrdersService {
         Orders updateOrders = ordersDao.update(orders);
         return mapper.map(updateOrders, OrdersDto.class);
     }
+
     @Transactional
     public List<ProductDto> getProductOrders(Long id) {
         List<Product> productList = ordersDao.getProductFromOrder(id);
@@ -115,6 +119,7 @@ public class OrdersService {
                 .map(product -> mapper.map(product, ProductDto.class))
                 .collect(Collectors.toList());
     }
+
     public DiscountCard giveDiscount(Orders orders, DiscountCard discountCard) {
         if (discountCard.getStatus().equals(Status.BRONZE)) {
             orders.setSum(orders.getSum() - 3);
@@ -124,6 +129,6 @@ public class OrdersService {
             orders.setSum(orders.getSum() - 5);
         }
         return discountCard;
-}
+    }
 }
 

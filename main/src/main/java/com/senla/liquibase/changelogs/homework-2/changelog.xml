@@ -16,7 +16,7 @@
     <changeSet id="homework-2-discount_cards" author="Pavel Kurilo">
         <sqlFile encoding="utf8" path="sql/02.discount_cards.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    <changeSet id="homework-2-pructs" author="Pavel Kurilo">
+    <changeSet id="homework-2-products" author="Pavel Kurilo">
         <sqlFile encoding="utf8" path="sql/03.products.sql" relativeToChangelogFile="true"/>
     </changeSet>
     <changeSet id="homework-2-orders" author="Pavel Kurilo">

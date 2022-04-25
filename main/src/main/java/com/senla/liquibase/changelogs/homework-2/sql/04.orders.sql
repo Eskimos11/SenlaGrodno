@@ -3,6 +3,7 @@ CREATE TABLE orders (
   sum int,
   discount_card_id int,
   user_id bigint,
+  status_order boolean,
   FOREIGN KEY (discount_card_id) REFERENCES discount_cards(id),
   PRIMARY KEY (id)
 ) ;
