@@ -59,7 +59,7 @@ public class OrdersController {
     public OrdersDto addDiscountCard(@PathVariable Long ordersId,
                                      @PathVariable String numberCard,
                                      @AuthenticationPrincipal Long userId) {
-        ordersService.addDiscountCard(ordersId, numberCard,userId);
+        ordersService.addDiscountCardToOrder(ordersId, numberCard,userId);
         return ordersService.getInfoOrder(ordersId);
     }
 

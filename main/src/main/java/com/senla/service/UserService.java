@@ -86,7 +86,6 @@ public class UserService {
         detailsDao.save(details);
         User user = ofNullable(userDao.getById(userId))
                 .orElseThrow(() -> new UserNotFoundException(userId));
-        ;
         user.setDetails(details);
         final User updateUser = userDao.update(user);
         return mapper.map(updateUser, UserDto.class);

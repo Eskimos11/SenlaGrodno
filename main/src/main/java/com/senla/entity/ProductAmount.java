@@ -21,8 +21,17 @@ public class ProductAmount {
     @SequenceGenerator(name = "productAmount-id-sequence", sequenceName = "productAmount_seq", allocationSize = 1)
     private Long id;
 
-    @Transient
+    @ManyToOne
+    @JoinColumn(name = "orders_id")
+    private Orders orders;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
     private Product product;
+
     @Column(name = "product_amount")
     private Integer amount;
+
+
+
 }

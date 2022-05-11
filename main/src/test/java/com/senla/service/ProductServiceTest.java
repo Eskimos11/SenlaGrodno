@@ -36,25 +36,18 @@ public class ProductServiceTest {
 
     @BeforeEach
     public void init(){
-        when(productDao.save(any())).thenReturn(Product.builder().title("XLEB").price(11).amount(10).build());
-         productDto = productService.createProduct(
-                ProductDto.builder()
+         productDto =ProductDto.builder()
                         .title("XLEB")
                         .price(11)
                         .amount(10)
-                        .build());
-        when(productDao.save(Product.builder().title("Moloko").price(10).amount(9).build()))
-                .thenReturn(Product.builder().id(124L).title("Moloko").price(10).amount(9).build());
-        productDao.save(
-                Product.builder()
-                        .title("Moloko")
-                        .price(10)
-                        .amount(9)
-                        .build());
+                        .build();
     }
 
     @Test
     public void saveProductShouldFinishOk() {
+        when(productDao.save(any())).thenReturn(Product.builder().id(1L).title("XLEB").price(11).amount(10).build());
+        productDto = productService.createProduct(productDto);
+        assertEquals(1L,productDto.getId());
         assertEquals("XLEB", productDto.getTitle());
         assertEquals(11, productDto.getPrice());
         assertEquals(10, productDto.getAmount());
@@ -62,7 +55,7 @@ public class ProductServiceTest {
 
     @Test
     public void getUserInfoTest() {
-        when(productDao.getById(any())).thenReturn(Product.builder().title("XLEB").price(11).amount(10).build());
+        when(productDao.getById(1L)).thenReturn(Product.builder().id(1L).title("XLEB").price(11).amount(10).build());
         ProductCreateDto productDto = productService.getProductInfo(1L);
         assertEquals("XLEB", productDto.getTitle());
         assertEquals(11, productDto.getPrice());
