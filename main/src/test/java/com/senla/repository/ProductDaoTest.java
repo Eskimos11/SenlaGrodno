@@ -14,6 +14,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 @ContextConfiguration(classes = ProductDaoImpl.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -24,10 +25,8 @@ public class ProductDaoTest extends BaseRepositoryTest {
     ProductDao productDao;
     @BeforeAll
     public void createProduct(){
-//        productDao.save(
-//                Product.builder().title("cola").price(11).amount(11).build());
         productDao.save(
-                Product.builder().title("Pivo").price(11).amount(10).build());
+                Product.builder().title("Pivo").price(11).amount(11).build());
          product = productDao.save(
                 Product.builder().title("Moloko").price(11).amount(9).build());
     }
@@ -37,7 +36,7 @@ public class ProductDaoTest extends BaseRepositoryTest {
         assertNotNull(product.getId());
     }
     @Test
-    @Order(1)
+    @Order(2)
     public void shouldFindEntityByNameCorrect() {
         productDao.save(
                 Product.builder().title("Kvas").price(11).amount(9).build());
@@ -54,7 +53,7 @@ public class ProductDaoTest extends BaseRepositoryTest {
 
 
     @Test
-    @Order(2)
+    @Order(1)
     public void getProductById(){
         Product product1 = productDao.getById(product.getId());
         assertEquals(product1,product);

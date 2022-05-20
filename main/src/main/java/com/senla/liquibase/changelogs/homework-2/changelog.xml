@@ -34,9 +34,9 @@
     <changeSet id="homework-2-productAmount" author="Pavel Kurilo">
         <sqlFile encoding="utf8" path="./sql/08.productAmount.sql" relativeToChangelogFile="true"/>
     </changeSet>
-    <changeSet id="homework-2-addData" author="Pavel Kurilo">
-        <sqlFile encoding="utf8" path="./sql/09.addData.sql" relativeToChangelogFile="true"/>
-    </changeSet>
+<!--    <changeSet id="homework-2-addData" author="Pavel Kurilo">-->
+<!--        <sqlFile encoding="utf8" path="./sql/09.addData.sql" relativeToChangelogFile="true"/>-->
+<!--    </changeSet>-->
 
 
 

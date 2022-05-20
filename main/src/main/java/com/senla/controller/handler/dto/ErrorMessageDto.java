@@ -11,4 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ErrorMessageDto {
     private String message;
+
+
 }

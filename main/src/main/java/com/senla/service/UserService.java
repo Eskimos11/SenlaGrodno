@@ -35,26 +35,17 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
 
-//    public UserCreateDto createUser(UserCreateDto userDto) {
-//        final User user = mapper.map(userDto, User.class);
-//        User savedUser = null;
-//        try {
-//            userDao.getByName(user.getUsername());
-////            throw new UserFoundException(user.getUsername());
-//        } catch (NoResultException e) {
-//            user.setPassword(passwordEncoder.encode(user.getPassword()));
-//            user.setRole(roleDao.getById(2L));
-//            savedUser = userDao.update(user);
-//        }
-//        return mapper.map(savedUser, UserCreateDto.class);
-//    }
-
     public UserCreateDto createUser(UserCreateDto userDto) {
         final User user = mapper.map(userDto, User.class);
         User savedUser = null;
+        try {
+            userDao.getByName(user.getUsername());
+            throw new UserFoundException(user.getUsername()) ;
+        }catch (NoResultException e){
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setRole(roleDao.getById(2L));
             savedUser = userDao.update(user);
+        }
         return mapper.map(savedUser, UserCreateDto.class);
     }
 

@@ -18,8 +18,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.Mockito.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+
 
 @ExtendWith(MockitoExtension.class)
 @Rollback(value = false)
@@ -64,8 +66,9 @@ public class ProductServiceTest {
 
     @Test
     public void deleteProductByIdTest() {
-        productService.deleteProduct(productDto.getId());
-        assertNull(productDao.getById(productDto.getId()));
+        productService.deleteProduct(1L);
+        verify(productDao).deleteById(1L);
+
     }
 
     @Test

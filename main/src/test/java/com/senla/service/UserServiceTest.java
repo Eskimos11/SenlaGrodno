@@ -9,6 +9,7 @@ import com.senla.dao.RoleDao;
 import com.senla.entity.Details;
 import com.senla.entity.Role;
 import com.senla.entity.User;
+import com.senla.exception.UserFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,9 +20,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.persistence.NoResultException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
@@ -52,16 +56,27 @@ class UserServiceTest {
     public void saveUserShouldFinishOk() {
         when(userDao.update(any())).thenReturn(User.builder().username("user7").id(123L)
                 .role(Role.builder().name("USER").id(2L).build()).build());
+        when(userDao.getByName(any())).thenThrow(NoResultException.class);
         UserCreateDto userCreateDtoDto = userService.createUser(
                 UserCreateDto.builder().username("user7").id(123L).build());
         assertEquals(123L, userCreateDtoDto.getId());
         assertEquals("user7", userCreateDtoDto.getUsername());
     }
 
-    @Test()
+    @Test
+    public void shouldThrowExceptionUserFound() {
+        when(userDao.getByName(any())).thenReturn(User.builder().username("user7").id(123L)
+                .role(Role.builder().name("USER").id(2L).build()).build());
+
+        assertThrows(UserFoundException.class, () -> {
+            userService.createUser(UserCreateDto.builder().username("user7").id(123L).build());
+        });
+    }
+
+    @Test
     public void deleteUserTest() {
-//        userService.deleteUser(userDto.getId());
-//        assertNull(userDao.getById(userDto.getId()));
+        userService.deleteUser(1L);
+        verify(userDao).deleteById(1L);
     }
 
     @Test
@@ -96,7 +111,7 @@ class UserServiceTest {
         UserDto user2 = UserDto.builder().id(1L).username("Mike").id(123L).build();
         user1 = userService.updateUser(user2);
 
-        assertEquals(user1.getUsername(),user2.getUsername());
+        assertEquals(user1.getUsername(), user2.getUsername());
     }
 
 }

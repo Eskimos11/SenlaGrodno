@@ -45,6 +45,10 @@ public class GlobalControllerAdvice {
     public ErrorMessageDto catchRuntimeException(DiscountCardFoundException discountCardFoundException) {
         return new ErrorMessageDto("Карту уже приложили");
     }
+    @ExceptionHandler(CloseOrderException.class)
+    public ErrorMessageDto catchRuntimeException(CloseOrderException CloseOrderException) {
+        return new ErrorMessageDto();
+    }
 
     @ExceptionHandler(NoAccessRightsException.class)
     public ErrorMessageDto catchRuntimeException() {

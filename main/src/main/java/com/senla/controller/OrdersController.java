@@ -49,8 +49,7 @@ public class OrdersController {
             , @PathVariable Long productDto
             , @PathVariable Integer count,
             @AuthenticationPrincipal Long userId) {
-//        return ordersService.addProducts(ordersDto, productDto, count,userId);
-        return null;
+        return ordersService.addProductsToOrder(ordersDto, productDto, count,userId);
     }
 
 

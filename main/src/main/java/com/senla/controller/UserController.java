@@ -3,11 +3,9 @@ package com.senla.controller;
 import com.senla.controller.dto.DetailsDto;
 import com.senla.controller.dto.UserDto.UserCreateDto;
 import com.senla.controller.dto.UserDto.UserDto;
-import com.senla.entity.User;
 import com.senla.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -29,7 +27,7 @@ public class UserController {
         userService.deleteUser(id);
     }
 
-//    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    //    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping(value = "/{id}")
     public UserDto getById(@PathVariable Long id) {
         return userService.getUserInfo(id);

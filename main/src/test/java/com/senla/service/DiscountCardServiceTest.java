@@ -17,6 +17,7 @@ import org.springframework.test.annotation.Rollback;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -72,11 +73,10 @@ class DiscountCardServiceTest {
 
     @Test
     void deleteDiscountCardByNumber() {
-//        when(discountCardDao.getByNumber(any()))
-//                .thenReturn(DiscountCard.builder().balance(123).number("1111").status(Status.BRONZE).build());
-//        discountCardDao.getById(discountCard.getId());
-//        discountCardService.deleteDiscountCard(discountCard.getNumber());
-//        assertNull(discountCardDao.getById(discountCard.getId()));
+        when(discountCardDao.getByNumber("1111"))
+                .thenReturn(DiscountCard.builder().balance(123).number("1111").status(Status.BRONZE).build());
+        discountCardService.deleteDiscountCard("1111");
+        verify(discountCardDao).deleteById(any());
 
     }
 

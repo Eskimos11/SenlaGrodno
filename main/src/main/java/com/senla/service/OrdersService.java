@@ -7,11 +7,9 @@ import com.senla.api.dao.ProductDao;
 import com.senla.controller.dto.OrdersDto.OrdersDto;
 import com.senla.controller.dto.ProductDto.ProductDto;
 import com.senla.entity.*;
-import com.senla.exception.DiscountCardFoundException;
-import com.senla.exception.NoAccessRightsException;
-import com.senla.exception.OrderNotFoundException;
-import com.senla.exception.ProductNotFoundException;
+import com.senla.exception.*;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -63,13 +61,13 @@ public class OrdersService {
     }
 
     @Transactional
-    public OrdersDto addProducts(Long orderId, Long productId, Integer amount) {
+    public OrdersDto addProductsToOrder(Long orderId, Long productId, Integer amount, Long userId) {
         Orders orders = ordersDao.getById(orderId);
         if(orders.isStatusOrder()){
-            throw new OrderNotFoundException(orderId);
+            throw new CloseOrderException();
         }
-//        if (!orders.getUserId().equals(id))
-//            throw new NoAccessRightsException("");
+        if (!orders.getUserId().equals(userId))
+            throw new NoAccessRightsException("");
         Product product = ofNullable(productDao.getById(productId))
                 .orElseThrow(() -> new ProductNotFoundException(productId));
         List<Product> productListOrders = ordersDao.getProductFromOrder(orderId);
@@ -110,7 +108,7 @@ public class OrdersService {
     }
 
     @Transactional
-    public List<ProductDto> getProductOrders(Long id) {
+    public List<ProductDto> getProductFromOrder(Long id) {
         List<Product> productList = ordersDao.getProductFromOrder(id);
         return productList
                 .stream()

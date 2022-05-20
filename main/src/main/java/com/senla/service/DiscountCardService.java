@@ -10,6 +10,7 @@ import com.senla.entity.Orders;
 import com.senla.entity.Status;
 import com.senla.exception.CardNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
